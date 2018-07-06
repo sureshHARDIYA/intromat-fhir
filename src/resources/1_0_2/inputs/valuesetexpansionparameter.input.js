@@ -1,0 +1,99 @@
+const {
+	GraphQLList,
+	GraphQLNonNull,
+	GraphQLString,
+	GraphQLBoolean,
+	GraphQLInt,
+	GraphQLFloat,
+	GraphQLInputObjectType,
+} = require('graphql');
+const IdScalar = require('../scalars/id.scalar.js');
+const UriScalar = require('../scalars/uri.scalar.js');
+const CodeScalar = require('../scalars/code.scalar.js');
+
+/**
+ * @name exports
+ * @summary ValueSetexpansionparameter Input Schema
+ */
+module.exports = new GraphQLInputObjectType({
+	name: 'ValueSetexpansionparameter_Input',
+	description: '',
+	fields: () => ({
+		_id: {
+			type: require('./element.input.js'),
+			description:
+				'unique id for the element within a resource (for internal references).',
+		},
+		id: {
+			type: IdScalar,
+			description:
+				'unique id for the element within a resource (for internal references).',
+		},
+		extension: {
+			type: new GraphQLList(require('./extension.input.js')),
+			description:
+				'May be used to represent additional information that is not part of the basic definition of the element. In order to make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.',
+		},
+		modifierExtension: {
+			type: new GraphQLList(require('./extension.input.js')),
+			description:
+				'May be used to represent additional information that is not part of the basic definition of the element, and that modifies the understanding of the element that contains it. Usually modifier elements provide negation or qualification. In order to make the use of extensions safe and manageable, there is a strict set of governance applied to the definition and use of extensions. Though any implementer is allowed to define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension. Applications processing a resource are required to check for modifier extensions.',
+		},
+		_name: {
+			type: require('./element.input.js'),
+			description: 'The name of the parameter.',
+		},
+		name: {
+			type: new GraphQLNonNull(GraphQLString),
+			description: 'The name of the parameter.',
+		},
+		_valueString: {
+			type: require('./element.input.js'),
+			description: 'The value of the parameter.',
+		},
+		valueString: {
+			type: GraphQLString,
+			description: 'The value of the parameter.',
+		},
+		_valueBoolean: {
+			type: require('./element.input.js'),
+			description: 'The value of the parameter.',
+		},
+		valueBoolean: {
+			type: GraphQLBoolean,
+			description: 'The value of the parameter.',
+		},
+		_valueInteger: {
+			type: require('./element.input.js'),
+			description: 'The value of the parameter.',
+		},
+		valueInteger: {
+			type: GraphQLInt,
+			description: 'The value of the parameter.',
+		},
+		_valueDecimal: {
+			type: require('./element.input.js'),
+			description: 'The value of the parameter.',
+		},
+		valueDecimal: {
+			type: GraphQLFloat,
+			description: 'The value of the parameter.',
+		},
+		_valueUri: {
+			type: require('./element.input.js'),
+			description: 'The value of the parameter.',
+		},
+		valueUri: {
+			type: UriScalar,
+			description: 'The value of the parameter.',
+		},
+		_valueCode: {
+			type: require('./element.input.js'),
+			description: 'The value of the parameter.',
+		},
+		valueCode: {
+			type: CodeScalar,
+			description: 'The value of the parameter.',
+		},
+	}),
+});
