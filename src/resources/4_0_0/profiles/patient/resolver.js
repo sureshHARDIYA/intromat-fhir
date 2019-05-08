@@ -9,8 +9,14 @@ module.exports.getPatient = function getPatient(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model, app }, version, req, res } = context;
+			resolve(await model.patients.getOne(args));
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -24,8 +30,14 @@ module.exports.getPatientList = function getPatientList(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			resolve({ entry: await model.patients.getAll(args) });
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -39,8 +51,17 @@ module.exports.getPatientInstance = function getPatientInstance(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			console.log('root:', root)
+			console.log('args:', args)
+
+			resolve(await model.patients.getOne(args));
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -54,8 +75,15 @@ module.exports.createPatient = function createPatient(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			const patient = await model.patients.createData(args.resource);
+			resolve(patient)
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -69,8 +97,15 @@ module.exports.updatePatient = function updatePatient(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			const patient = await model.patients.updateData(args.id, args.resource);
+			resolve(patient)
+		} catch(e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -84,6 +119,13 @@ module.exports.removePatient = function removePatient(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			const patient = await model.patients.removeData(args.id);
+			resolve(patient)
+		} catch (e) {
+			reject(e);
+		}
+	});
 };

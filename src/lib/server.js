@@ -13,6 +13,7 @@ const helmet = require('helmet');
 const https = require('https');
 const http = require('http');
 const fs = require('fs');
+const model = require('../models');
 
 class Server {
 	constructor(config = {}) {
@@ -38,9 +39,7 @@ class Server {
 	// Initialize a database connection
 	// eslint-disable-next-line no-unused-vars
 	initializeDatabaseConnection(options = {}) {
-		// Store the db on this somehow
-
-		// return self for chaining
+		this.model = model;
 		return this;
 	}
 
