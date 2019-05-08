@@ -9,8 +9,14 @@ module.exports.getOrganization = function getOrganization(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: {model, app}, version, req, res } =  context;
+			resolve(await model.organizations.getOne(args));
+		} catch(e){
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -54,8 +60,15 @@ module.exports.createOrganization = function createOrganization(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	 return new Promise(async (resolve, reject) => {
+		 try {
+ 			const { server: { model }, version, req, res } = context;
+ 			const organization = await model.organizations.createData(args.resource);
+ 			resolve(organization)
+ 		} catch (e) {
+ 			reject(e);
+ 		}
+	});
 };
 
 /**
@@ -69,8 +82,15 @@ module.exports.updateOrganization = function updateOrganization(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			const organization = await model.organizations.updateData(args.id, args.resource);
+			resolve(organization)
+		} catch(e) {
+			reject(e);
+		}
+	});
 };
 
 /**
