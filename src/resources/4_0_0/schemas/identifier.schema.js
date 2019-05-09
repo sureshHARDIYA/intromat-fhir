@@ -69,17 +69,21 @@ module.exports = new GraphQLObjectType({
 			description: 'Time period during which identifier is/was valid for use.',
 		},
 		assigner: {
-			type: new GraphQLUnionType({
-				name: 'Identifierassigner_assigner_Union',
-				description: 'Organization that issued/manages the identifier.',
-				types: () => [require('./organization.schema.js')],
-				resolveType(data) {
-					if (data && data.resourceType === 'Organization') {
-						return require('./organization.schema.js');
-					}
-				},
-			}),
-			description: 'Organization that issued/manages the identifier.',
+			type: require('./reference.schema.js'),
+			description: 'Time period during which identifier is/was valid for use.',
 		},
+		// assigner: {
+		// 	type: new GraphQLUnionType({
+		// 		name: 'Identifierassigner_assigner_Union',
+		// 		description: 'Organization that issued/manages the identifier.',
+		// 		types: () => [require('./organization.schema.js')],
+		// 		resolveType(data) {
+		// 			if (data && data.resourceType === 'Organization') {
+		// 				return require('./organization.schema.js');
+		// 			}
+		// 		},
+		// 	}),
+		// 	description: 'Organization that issued/manages the identifier.',
+		// },
 	}),
 });

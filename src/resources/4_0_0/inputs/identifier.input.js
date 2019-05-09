@@ -68,7 +68,7 @@ module.exports = new GraphQLInputObjectType({
 			description: 'Time period during which identifier is/was valid for use.',
 		},
 		assigner: {
-			type: GraphQLString,
+			type: require('./reference.input.js'),
 			description: 'Organization that issued/manages the identifier.',
 		},
 	}),

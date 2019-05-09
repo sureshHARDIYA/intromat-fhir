@@ -2,7 +2,10 @@ const period = require('./period');
 
 module.exports = {
   use: String,
-  type: String,
+  type: {
+    type: String,
+    enum: ['postal', 'physical', 'both'],
+  },
   text: String,
   line: [String],
   city: String,
