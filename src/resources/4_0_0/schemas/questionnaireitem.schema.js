@@ -170,5 +170,10 @@ module.exports = new GraphQLObjectType({
 			description:
 				'One or more values that should be pre-populated in the answer when initially rendering the questionnaire for user input.',
 		},
+		item: {
+			type: new GraphQLList(require('./questionnaireitem.schema.js')),
+			description:
+				'A particular question, question grouping or display text that is part of the questionnaire.',
+		},
 	}),
 });
