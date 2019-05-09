@@ -14,7 +14,7 @@ module.exports = mongoose => {
       required: true,
       enum: ['Patient'],
     },
-    identifier,
+    identifier: [identifier('Patient')],
     active: Boolean,
     name: [humanName],
     telecom: contactPoint,
@@ -24,8 +24,8 @@ module.exports = mongoose => {
       deceasedBoolean: Boolean,
       deceasedDateTime: Date,
     },
-    address,
     maritalStatus,
+    address: [address],
     multipleBirth: {
       multipleBirthBoolean: Boolean,
       multipleBirthInteger: Number,

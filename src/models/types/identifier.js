@@ -1,11 +1,10 @@
-module.exports = {
-  id: String,
+const reference = require('./reference');
+const codeableConcept = require('./codeableConcept');
+
+module.exports = ref => ({
   use: String,
-  type: String,
   system: String,
   value: String,
-  assigner: {
-    type: 'ObjectId',
-    ref: 'Organization',
-  },
-};
+  type: codeableConcept,
+  assigner: reference(ref),
+});
