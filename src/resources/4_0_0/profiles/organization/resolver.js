@@ -9,8 +9,14 @@ module.exports.getOrganization = function getOrganization(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: {model, app}, version, req, res } =  context;
+			resolve(await model.organizations.getOne(args));
+		} catch(e){
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -24,8 +30,14 @@ module.exports.getOrganizationList = function getOrganizationList(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			resolve({ entry: await model.organizations.getAll(args) });
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -39,8 +51,15 @@ module.exports.getOrganizationInstance = function getOrganizationInstance(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+
+			resolve(await model.organizations.getOne(args));
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -54,8 +73,15 @@ module.exports.createOrganization = function createOrganization(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	 return new Promise(async (resolve, reject) => {
+		 try {
+ 			const { server: { model }, version, req, res } = context;
+ 			const organization = await model.organizations.createData(args.resource);
+ 			resolve(organization)
+ 		} catch (e) {
+ 			reject(e);
+ 		}
+	});
 };
 
 /**
@@ -69,8 +95,15 @@ module.exports.updateOrganization = function updateOrganization(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			const organization = await model.organizations.updateData(args.id, args.resource);
+			resolve(organization)
+		} catch(e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -84,6 +117,13 @@ module.exports.removeOrganization = function removeOrganization(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			const organization = await model.organizations.removeData(args.id);
+			resolve(organization)
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
