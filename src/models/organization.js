@@ -11,7 +11,7 @@ module.exports = mongoose => {
         required: true,
         enum: ['Organization'],
       },
-      identifier: [identifier],
+      identifier: [identifier('Organization')],
       active: Boolean,
       type: [],
       name: String,
@@ -19,12 +19,10 @@ module.exports = mongoose => {
       telecom: contactPoint,
       address: [address],
       contact,
-      partOf: [
-        {
-          type: 'ObjectId',
-          ref: 'Organization',
-        },
-      ],
+      partOf: {
+        type: 'ObjectId',
+        ref: 'Organization',
+      },
       endpoint: {
         type: 'ObjectId',
         ref: 'Endpoint',

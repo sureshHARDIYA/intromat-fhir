@@ -8,64 +8,77 @@ const maritalStatus = require('./types/maritalStatus');
 const contactPoint = require('./types/contactPoint');
 
 module.exports = mongoose => {
-  const Schema = new mongoose.Schema({
-    resourceType: {
-      type: String,
-      required: true,
-      enum: ['Patient'],
-    },
-    identifier: [identifier('Patient')],
-    active: Boolean,
-    name: [humanName],
-    telecom: contactPoint,
-    gender,
-    birthDate: Date,
-    deceased: {
-      deceasedBoolean: Boolean,
-      deceasedDateTime: Date,
-    },
-    maritalStatus,
-    address: [address],
-    multipleBirth: {
-      multipleBirthBoolean: Boolean,
-      multipleBirthInteger: Number,
-    },
-    contact,
-    photo: attachment,
-    communication: [{
-      preferred: Boolean,
-      communication: String,
-    }],
-    generalOrganization: [{
-      type: 'ObjectId',
-      ref: 'Organization',
-    }],
-    generalPractitioner: [{
-      type: 'ObjectId',
-      ref: 'Practitioner',
-    }],
-    generalPractitionerRole: [{
-      type: 'ObjectId',
-      ref: 'PractitionerRole',
-    }],
-    link: [{
-      type: String,
-      otherPatient: {
-        type: 'ObjectId',
-        ref: 'Patient',
+  const Schema = new mongoose.Schema(
+    {
+      resourceType: {
+        type: String,
+        required: true,
+        enum: ['Patient'],
       },
-      otherRelatedPerson: {
-        type: 'ObjectId',
-        ref: 'RelatedPerson',
+      identifier: [identifier('Patient')],
+      active: Boolean,
+      name: [humanName],
+      telecom: contactPoint,
+      gender,
+      birthDate: Date,
+      deceased: {
+        deceasedBoolean: Boolean,
+        deceasedDateTime: Date,
       },
-    }],
-    managingOrganization: {
-      type: 'ObjectId',
-      ref: 'Organization',
+      maritalStatus,
+      address: [address],
+      multipleBirth: {
+        multipleBirthBoolean: Boolean,
+        multipleBirthInteger: Number,
+      },
+      contact,
+      photo: attachment,
+      communication: [
+        {
+          preferred: Boolean,
+          communication: String,
+        },
+      ],
+      generalOrganization: [
+        {
+          type: 'ObjectId',
+          ref: 'Organization',
+        },
+      ],
+      generalPractitioner: [
+        {
+          type: 'ObjectId',
+          ref: 'Practitioner',
+        },
+      ],
+      generalPractitionerRole: [
+        {
+          type: 'ObjectId',
+          ref: 'PractitionerRole',
+        },
+      ],
+      link: [
+        {
+          type: String,
+          otherPatient: {
+            type: 'ObjectId',
+            ref: 'Patient',
+          },
+          otherRelatedPerson: {
+            type: 'ObjectId',
+            ref: 'RelatedPerson',
+          },
+        },
+      ],
+      managingOrganization: {
+        type: 'ObjectId',
+        ref: 'Organization',
+      },
     },
-  }, {
-    timestamps: true,
-  });
+    {
+      timestamps: true,
+    },
+  );
 
   const permitFields = [
     'identifier',
@@ -88,14 +101,18 @@ module.exports = mongoose => {
     'managingOrganization',
   ];
 
-  Schema.statics.getAll = function (args) {
+  Schema.statics.getAll = function(args) {
     return new Promise(async (resolve, reject) => {
       try {
         const { limit = 10, page = 1 } = args || {};
         const query = { limit: Math.abs(parseInt(limit, 10) || 10) };
         const currentPage = Math.abs((parseInt(page, 10) || 1) - 1);
         query.skip = query.limit * currentPage;
-        const patients = await this.find({}, {}, { sort: { createdAt: 'desc' }, limit: query.limit, skip: query.skip });
+        const patients = await this.find(
+          {},
+          {},
+          { sort: { createdAt: 'desc' }, limit: query.limit, skip: query.skip },
+        );
         resolve(patients.map(resource => ({ resource })));
       } catch (e) {
         reject(e);
@@ -103,7 +120,7 @@ module.exports = mongoose => {
     });
   };
 
-  Schema.statics.getOne = function (params = {}) {
+  Schema.statics.getOne = function(params = {}) {
     return new Promise(async (resolve, reject) => {
       try {
         const patient = await this.findOne(params || {});
@@ -119,10 +136,16 @@ module.exports = mongoose => {
     });
   };
 
-  Schema.statics.createData = function (params = {}) {
+  Schema.statics.createData = function(params = {}) {
     return new Promise(async (resolve, reject) => {
       try {
-        const permitParams = permitFields.reduce((obj, key) => [undefined, null].includes(params[key]) ? obj : Object.assign(obj, { [key]: params[key] }), {});
+        const permitParams = permitFields.reduce(
+          (obj, key) =>
+            [undefined, null].includes(params[key])
+              ? obj
+              : Object.assign(obj, { [key]: params[key] }),
+          {},
+        );
         permitParams.resourceType = 'Patient';
         resolve(await this.create(permitParams));
       } catch (e) {
@@ -131,7 +154,7 @@ module.exports = mongoose => {
     });
   };
 
-  Schema.statics.updateData = function (_id, params = {}) {
+  Schema.statics.updateData = function(_id, params = {}) {
     return new Promise(async (resolve, reject) => {
       try {
         const patient = await this.findOne({ _id });
@@ -140,7 +163,9 @@ module.exports = mongoose => {
           throw new Error('Patient not found');
         }
 
-        Object.entries(params || {}).forEach(([key, value]) => (patient[key] = value));
+        Object.entries(params || {}).forEach(
+          ([key, value]) => (patient[key] = value),
+        );
         patient.resourceType = 'Patient';
         await patient.save();
 
@@ -151,7 +176,7 @@ module.exports = mongoose => {
     });
   };
 
-  Schema.statics.removeData = function (_id) {
+  Schema.statics.removeData = function(_id) {
     return new Promise(async (resolve, reject) => {
       try {
         const patient = await this.findOne({ _id });
