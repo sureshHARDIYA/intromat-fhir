@@ -11,7 +11,7 @@ module.exports.getQuestionnaire = function getQuestionnaire(
 ) {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const { server: { model, app }, version, req, res } = context;
+			const { server: { model }, version, req, res } = context;
 			resolve(await model.questionnaires.getOne(args));
 		} catch (e) {
 			reject(e);

@@ -1,5 +1,5 @@
-const contact = require('./types/contact');
 const identifier = require('./types/identifier');
+const contactDetail = require('./types/contactDetail');
 const codeableConcept = require('./types/codeableConcept');
 const period = require('./types/period');
 const coding = require('./types/coding');
@@ -18,10 +18,10 @@ module.exports = mongoose => {
       version: String,
       name: String,
       title: String,
-      derivedFrom: {
+      derivedFrom: [{
         type: 'ObjectId',
         ref: 'Questionnaire',
-      },
+      }],
       status: {
         type: String,
         enum: ['draft', 'active', 'retired', 'unknown'],
@@ -30,7 +30,7 @@ module.exports = mongoose => {
       subjectType: [codeableConcept],
       date: Date,
       publisher: String,
-      contact,
+      contact: [contactDetail],
       description: String,
       jurisdiction: [codeableConcept],
       purpose: String,
@@ -47,16 +47,27 @@ module.exports = mongoose => {
   );
 
   const permitFields = [
+    'resourceType',
+    'url',
     'identifier',
-    'active',
-    'type',
+    'version',
+    'title',
     'name',
-    'alias',
-    'telecom',
-    'address',
+    'derivedFrom',
+    'status',
+    'experimental',
+    'subjectType',
+    'date',
+    'publisher',
     'contact',
-    'partOf',
-    'endpoint',
+    'description',
+    'purpose',
+    'copyright',
+    'approvalDate',
+    'lastReviewDate',
+    'effectivePeriod',
+    'code',
+    'item',
   ];
 
   Schema.statics.getAll = function(args) {
