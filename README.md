@@ -27,63 +27,139 @@ mutation PatientCreate {
   PatientCreate(resource: {
       resourceType: Patient
       name: [
-    {
-      use: "official",
-      family: "Chalmers",
-      given: [
-        "Peter",
-        "James"
+        {
+          use: "official",
+          family: "Chalmers",
+          given: [
+            "Peter",
+            "James"
+          ]
+        },
+        {
+          use: "usual",
+          given: [
+            "Jim"
+          ]
+        },
+        {
+          use: "maiden",
+          family: "Windsor",
+          given: [
+            "Peter",
+            "James"
+          ],
+          period: {
+            end: "2002"
+          }
+        }
       ]
-    },
+      gender: "male"
+    contact: [
     {
-      use: "usual",
-      given: [
-        "Jim"
-      ]
-    },
-    {
-      use: "maiden",
-      family: "Windsor",
-      given: [
-        "Peter",
-        "James"
-      ],
-      period: {
-        end: "2002"
-      }
-    }
-  ]
-    gender: "male"
-    telecom: [
-    {
-      use: "home"
-    },
-    {
-      system: "phone",
-      value: "(03) 5555 6473",
-      use: "work",
-      rank: "1"
-    },
-    {
-      system: "phone",
-      value: "(03) 3410 5613",
-      use: "mobile",
-      rank: "2"
-    },
-    {
-      system: "phone",
-      value: "(03) 5555 8834",
-      use: "old",
-      period: {
-        end: "2014"
-      }
-    }
-  ]
-    active: true
 
+      name: {
+        text: "mr. F. de Hond"
+      },
+      telecom: [
+        {
+          system: "phone",
+          value: "022-655 7654"
+        },
+        {
+          system: "email",
+          value: "KNO@burgersumc.nl"
+        },
+        {
+          system: "fax",
+          value: "022-655 0998"
+        }
+      ],
+      address: {
+        line: [
+          "West Wing, floor 5"
+        ]
+      }
+    }
+  ]
+      telecom: [
+      {
+        use: "home"
+      },
+      {
+        system: "phone",
+        value: "(03) 5555 6473",
+        use: "work",
+        rank: "1"
+      },
+      {
+        system: "phone",
+        value: "(03) 3410 5613",
+        use: "mobile",
+        rank: "2"
+      },
+      {
+        system: "phone",
+        value: "(03) 5555 8834",
+        use: "old",
+        period: {
+          end: "2014"
+        }
+      }
+    ]
+    active: true
+      address: [
+        {
+          type: "postal"
+          line: ["3300 Washtenaw Avenue, Suite 227"]
+          city: "Ann Arbor"
+          state: "MI"
+          postalCode: "48104"
+          country: "USA"
+        }
+      ],
+    identifier: [
+      {
+        use: "usual",
+        type: {
+          coding: [
+            {
+              system: "http://terminology.hl7.org/CodeSystem/v2-0203",
+              code: "MR"
+            }
+          ]
+        },
+        system: "urn:oid:1.2.36.146.595.217.0.1",
+        value: "12345",
+        period: {
+          start: "2001-05-06"
+        },
+        assigner: {
+          display: "Acme Healthcare"
+        }
+      }
+    ],
     }
   ) {
     id
+    resourceType
+    name { family }
+    address {
+      id
+      line
+      type
+    }
+    identifier {
+      use,
+      assigner {
+        display
+      }
+    }
+    identifier {
+      use,
+      assigner {
+        display
+      }
+    }
   }
 }
 ```
