@@ -2,59 +2,51 @@ const identifier = require('./types/identifier');
 const contactDetail = require('./types/contactDetail');
 const codeableConcept = require('./types/codeableConcept');
 const period = require('./types/period');
-const meta = require('./types/meta');
-const narrative = require('./types/narrative');
 const coding = require('./types/coding');
 const questionnaireItem = require('./types/questionnaireItem');
-const answerValueSet = require('./types/answerValueSet');
+const domainResource = require('./types/domainResource');
 
 module.exports = mongoose => {
 	const Schema = new mongoose.Schema(
-		{
-			resourceType: {
-				type: String,
-				required: true,
-				enum: ['Questionnaire'],
-			},
-			url: String,
-			identifier: [identifier('Questionnaire')],
-			version: String,
-			name: String,
-			title: String,
-			derivedFrom: [
-				{
-					type: 'ObjectId',
-					ref: 'Questionnaire',
-				},
-			],
-			status: {
-				type: String,
-				enum: ['draft', 'active', 'retired', 'unknown'],
-			},
-			experimental: Boolean,
-			subjectType: [codeableConcept],
-			date: Date,
-			publisher: String,
-			contact: [contactDetail],
-			description: String,
-			jurisdiction: [codeableConcept],
-			purpose: String,
-			copyright: String,
-			approvalDate: Date,
-			lastReviewDate: Date,
-			effectivePeriod: [period],
-			code: [coding],
-			meta,
-			text: narrative,
-			contained: [Object.assign(answerValueSet, {
-				id: String,
+		Object.assign(
+			domainResource,
+			{
 				resourceType: {
 					type: String,
-					enum: ['ValueSet'],
+					required: true,
+					enum: ['Questionnaire'],
 				},
-			})],
-			item: [questionnaireItem],
-		},
+				url: String,
+				identifier: [identifier('Questionnaire')],
+				version: String,
+				name: String,
+				title: String,
+				derivedFrom: [
+					{
+						type: 'ObjectId',
+						ref: 'Questionnaire',
+					},
+				],
+				status: {
+					type: String,
+					enum: ['draft', 'active', 'retired', 'unknown'],
+				},
+				experimental: Boolean,
+				subjectType: [codeableConcept],
+				date: Date,
+				publisher: String,
+				contact: [contactDetail],
+				description: String,
+				jurisdiction: [codeableConcept],
+				purpose: String,
+				copyright: String,
+				approvalDate: Date,
+				lastReviewDate: Date,
+				effectivePeriod: [period],
+				code: [coding],
+				item: [questionnaireItem],
+			}
+		),
 		{
 			timestamps: true,
 		},
@@ -82,6 +74,9 @@ module.exports = mongoose => {
 		'effectivePeriod',
 		'code',
 		'item',
+		'meta',
+		'language',
+		'implicitRules',
 		'text',
 		'contained',
 	];
