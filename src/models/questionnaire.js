@@ -2,8 +2,11 @@ const identifier = require('./types/identifier');
 const contactDetail = require('./types/contactDetail');
 const codeableConcept = require('./types/codeableConcept');
 const period = require('./types/period');
+const meta = require('./types/meta');
+const narrative = require('./types/narrative');
 const coding = require('./types/coding');
 const questionnaireItem = require('./types/questionnaireItem');
+const answerValueSet = require('./types/answerValueSet');
 
 module.exports = mongoose => {
 	const Schema = new mongoose.Schema(
@@ -41,6 +44,15 @@ module.exports = mongoose => {
 			lastReviewDate: Date,
 			effectivePeriod: [period],
 			code: [coding],
+			meta,
+			text: narrative,
+			contained: [Object.assign(answerValueSet, {
+				id: String,
+				resourceType: {
+					type: String,
+					enum: ['ValueSet'],
+				},
+			})],
 			item: [questionnaireItem],
 		},
 		{
@@ -70,6 +82,8 @@ module.exports = mongoose => {
 		'effectivePeriod',
 		'code',
 		'item',
+		'text',
+		'contained',
 	];
 
 	Schema.statics.getAll = function(args) {
