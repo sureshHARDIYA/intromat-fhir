@@ -1,7 +1,8 @@
-const contact = require('./types/contact');
 const address = require('./types/address');
 const identifier = require('./types/identifier');
 const contactPoint = require('./types/contactPoint');
+const codeableConcept = require('./types/codeableConcept');
+const humanName = require('./types/humanName');
 
 module.exports = mongoose => {
   const Schema = new mongoose.Schema(
@@ -13,12 +14,17 @@ module.exports = mongoose => {
       },
       identifier: [identifier('Organization')],
       active: Boolean,
-      type: [],
+      type: codeableConcept,
       name: String,
       alias: [String],
-      telecom: contactPoint,
+      telecom: [contactPoint],
       address: [address],
-      contact,
+      contact: [{
+        purpose: codeableConcept,
+        name: humanName,
+        address: address,
+        telecom: contactPoint,
+      }],
       partOf: {
         type: 'ObjectId',
         ref: 'Organization',
