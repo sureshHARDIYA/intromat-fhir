@@ -1,9 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 const mongoose = require('mongoose');
-const uristring =
-  process.env.MONGODB_URI || 'mongodb://localhost/intromat-fhir';
+const uristring = process.env.MONGODB_URI || 'mongodb://localhost/intromat-fhir';
 
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useCreateIndex', true);
 mongoose.connect(
   uristring,
   err =>

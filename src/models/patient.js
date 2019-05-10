@@ -6,75 +6,79 @@ const humanName = require('./types/humanName');
 const attachment = require('./types/attachment');
 const maritalStatus = require('./types/maritalStatus');
 const contactPoint = require('./types/contactPoint');
+const domainResource = require('./types/domainResource');
 
 module.exports = mongoose => {
   const Schema = new mongoose.Schema(
-    {
-      resourceType: {
-        type: String,
-        required: true,
-        enum: ['Patient'],
-      },
-      identifier: [identifier('Patient')],
-      active: Boolean,
-      name: [humanName],
-      telecom: contactPoint,
-      gender,
-      birthDate: Date,
-      deceased: {
-        deceasedBoolean: Boolean,
-        deceasedDateTime: Date,
-      },
-      maritalStatus,
-      address: [address],
-      multipleBirth: {
-        multipleBirthBoolean: Boolean,
-        multipleBirthInteger: Number,
-      },
-      contact,
-      photo: attachment,
-      communication: [
-        {
-          preferred: Boolean,
-          communication: String,
+    Object.assign(
+      domainResource,
+      {
+        resourceType: {
+          type: String,
+          required: true,
+          enum: ['Patient'],
         },
-      ],
-      generalOrganization: [
-        {
+        identifier: [identifier('Patient')],
+        active: Boolean,
+        name: [humanName],
+        telecom: contactPoint,
+        gender,
+        birthDate: Date,
+        deceased: {
+          deceasedBoolean: Boolean,
+          deceasedDateTime: Date,
+        },
+        maritalStatus,
+        address: [address],
+        multipleBirth: {
+          multipleBirthBoolean: Boolean,
+          multipleBirthInteger: Number,
+        },
+        contact,
+        photo: attachment,
+        communication: [
+          {
+            preferred: Boolean,
+            communication: String,
+          },
+        ],
+        generalOrganization: [
+          {
+            type: 'ObjectId',
+            ref: 'Organization',
+          },
+        ],
+        generalPractitioner: [
+          {
+            type: 'ObjectId',
+            ref: 'Practitioner',
+          },
+        ],
+        generalPractitionerRole: [
+          {
+            type: 'ObjectId',
+            ref: 'PractitionerRole',
+          },
+        ],
+        link: [
+          {
+            type: String,
+            otherPatient: {
+              type: 'ObjectId',
+              ref: 'Patient',
+            },
+            otherRelatedPerson: {
+              type: 'ObjectId',
+              ref: 'RelatedPerson',
+            },
+          },
+        ],
+        managingOrganization: {
           type: 'ObjectId',
           ref: 'Organization',
         },
-      ],
-      generalPractitioner: [
-        {
-          type: 'ObjectId',
-          ref: 'Practitioner',
-        },
-      ],
-      generalPractitionerRole: [
-        {
-          type: 'ObjectId',
-          ref: 'PractitionerRole',
-        },
-      ],
-      link: [
-        {
-          type: String,
-          otherPatient: {
-            type: 'ObjectId',
-            ref: 'Patient',
-          },
-          otherRelatedPerson: {
-            type: 'ObjectId',
-            ref: 'RelatedPerson',
-          },
-        },
-      ],
-      managingOrganization: {
-        type: 'ObjectId',
-        ref: 'Organization',
-      },
-    },
+      }
+    ),
     {
       timestamps: true,
     },
