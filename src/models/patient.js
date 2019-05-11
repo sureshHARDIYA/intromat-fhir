@@ -6,75 +6,79 @@ const humanName = require('./types/humanName');
 const attachment = require('./types/attachment');
 const maritalStatus = require('./types/maritalStatus');
 const contactPoint = require('./types/contactPoint');
+const domainResource = require('./types/domainResource');
 
 module.exports = mongoose => {
   const Schema = new mongoose.Schema(
-    {
-      resourceType: {
-        type: String,
-        required: true,
-        enum: ['Patient'],
-      },
-      identifier: [identifier('Patient')],
-      active: Boolean,
-      name: [humanName],
-      telecom: contactPoint,
-      gender,
-      birthDate: Date,
-      deceased: {
-        deceasedBoolean: Boolean,
-        deceasedDateTime: Date,
-      },
-      maritalStatus,
-      address: [address],
-      multipleBirth: {
-        multipleBirthBoolean: Boolean,
-        multipleBirthInteger: Number,
-      },
-      contact,
-      photo: attachment,
-      communication: [
-        {
-          preferred: Boolean,
-          communication: String,
+    Object.assign(
+      domainResource,
+      {
+        resourceType: {
+          type: String,
+          required: true,
+          enum: ['Patient'],
         },
-      ],
-      generalOrganization: [
-        {
-          type: 'ObjectId',
+        identifier: [identifier('Patient')],
+        active: Boolean,
+        name: [humanName],
+        telecom: contactPoint,
+        gender,
+        birthDate: Date,
+        deceased: {
+          deceasedBoolean: Boolean,
+          deceasedDateTime: Date,
+        },
+        maritalStatus,
+        address: [address],
+        multipleBirth: {
+          multipleBirthBoolean: Boolean,
+          multipleBirthInteger: Number,
+        },
+        contact,
+        photo: attachment,
+        communication: [
+          {
+            preferred: Boolean,
+            communication: String,
+          },
+        ],
+        organizations: [
+          {
+            ref: 'Organization',
+            type: mongoose.Schema.ObjectId,
+          },
+        ],
+        practitioners: [
+          {
+            type: mongoose.Schema.ObjectId,
+            ref: 'Practitioner',
+          },
+        ],
+        practitionerRoles: [
+          {
+            type: mongoose.Schema.ObjectId,
+            ref: 'PractitionerRole',
+          },
+        ],
+        link: [
+          {
+            type: String,
+            otherPatient: {
+              type: mongoose.Schema.ObjectId,
+              ref: 'Patient',
+            },
+            otherRelatedPerson: {
+              type: mongoose.Schema.ObjectId,
+              ref: 'RelatedPerson',
+            },
+          },
+        ],
+        managingOrganization: {
+          type: mongoose.Schema.ObjectId,
           ref: 'Organization',
         },
-      ],
-      generalPractitioner: [
-        {
-          type: 'ObjectId',
-          ref: 'Practitioner',
-        },
-      ],
-      generalPractitionerRole: [
-        {
-          type: 'ObjectId',
-          ref: 'PractitionerRole',
-        },
-      ],
-      link: [
-        {
-          type: String,
-          otherPatient: {
-            type: 'ObjectId',
-            ref: 'Patient',
-          },
-          otherRelatedPerson: {
-            type: 'ObjectId',
-            ref: 'RelatedPerson',
-          },
-        },
-      ],
-      managingOrganization: {
-        type: 'ObjectId',
-        ref: 'Organization',
-      },
-    },
+      }
+    ),
     {
       timestamps: true,
     },
@@ -95,11 +99,20 @@ module.exports = mongoose => {
     'maritalStatus',
     'multipleBirth',
     'communication',
-    'generalOrganization',
+    'organizations',
+    'practitioners',
+    'practitionerRoles',
     'generalPractitioner',
-    'generalPractitionerRole',
     'managingOrganization',
   ];
+
+  Schema.set('toJSON', { virtuals: true });
+
+  Schema
+    .virtual('generalPractitioner')
+    .get(function() {
+      return Object.assign([], this.organizations, this.practitioners, this.practitionerRoles);
+    });
 
   Schema.statics.getAll = function(args) {
     return new Promise(async (resolve, reject) => {
@@ -112,7 +125,10 @@ module.exports = mongoose => {
           {},
           {},
           { sort: { createdAt: 'desc' }, limit: query.limit, skip: query.skip },
-        );
+        )
+        .populate('organizations')
+        .populate('managingOrganization');
+
         resolve(patients.map(resource => ({ resource })));
       } catch (e) {
         reject(e);

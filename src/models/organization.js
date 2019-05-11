@@ -3,37 +3,41 @@ const identifier = require('./types/identifier');
 const contactPoint = require('./types/contactPoint');
 const codeableConcept = require('./types/codeableConcept');
 const humanName = require('./types/humanName');
+const domainResource = require('./types/domainResource');
 
 module.exports = mongoose => {
   const Schema = new mongoose.Schema(
-    {
-      resourceType: {
-        type: String,
-        required: true,
-        enum: ['Organization'],
-      },
-      identifier: [identifier('Organization')],
-      active: Boolean,
-      type: codeableConcept,
-      name: String,
-      alias: [String],
-      telecom: [contactPoint],
-      address: [address],
-      contact: [{
-        purpose: codeableConcept,
-        name: humanName,
-        address: address,
-        telecom: contactPoint,
-      }],
-      partOf: {
-        type: 'ObjectId',
-        ref: 'Organization',
-      },
-      endpoint: {
-        type: 'ObjectId',
-        ref: 'Endpoint',
-      },
-    },
+    Object.assign(
+      domainResource,
+      {
+        resourceType: {
+          type: String,
+          required: true,
+          enum: ['Organization'],
+        },
+        identifier: [identifier('Organization')],
+        active: Boolean,
+        type: codeableConcept,
+        name: String,
+        alias: [String],
+        telecom: [contactPoint],
+        address: [address],
+        contact: [{
+          purpose: codeableConcept,
+          name: humanName,
+          address: address,
+          telecom: contactPoint,
+        }],
+        partOf: {
+          type: 'ObjectId',
+          ref: 'Organization',
+        },
+        endpoint: {
+          type: 'ObjectId',
+          ref: 'Endpoint',
+        },
+      }
+    ),
     {
       timestamps: true,
     },
