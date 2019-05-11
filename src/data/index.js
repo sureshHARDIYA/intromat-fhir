@@ -13,10 +13,10 @@ const model = require('../models');
 Promise.all(
     fs.readdirSync(__dirname)
     .filter(file => file.indexOf('.') !== 0 && !['index.js'].includes(file))
-    .map(file => require(path.join(__dirname, file))(model, 10))
+    .map(file => require(path.join(__dirname, file))(model, 100))
   )
   .then(async () => {
-    console.log('UPDATE LINK PATIENT -> ORGANIZTION');
+    console.log('UPDATING LINK PATIENT -> ORGANIZTION');
 
     try {
       const patientIds = await model.patients.find({}, ['id']);
@@ -24,7 +24,10 @@ Promise.all(
       const length = organizationIds.length;
 
       for (let i = 0; i < patientIds.length; i++) {
-        await patientIds[i].updateOne({ generalOrganization: [...Array(faker.random.number() % 2 + 1).keys()].map(() => organizationIds[faker.random.number() % length]) });
+        await patientIds[i].updateOne({
+          managingOrganization: organizationIds[faker.random.number() % length],
+          organizations: [...Array(faker.random.number() % 2 + 1).keys()].map(() => organizationIds[faker.random.number() % length]),
+        });
       }
 
       return Promise.resolve(true);

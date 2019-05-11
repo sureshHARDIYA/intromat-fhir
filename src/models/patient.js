@@ -42,21 +42,21 @@ module.exports = mongoose => {
             communication: String,
           },
         ],
-        generalOrganization: [
+        organizations: [
           {
-            type: 'ObjectId',
             ref: 'Organization',
+            type: mongoose.Schema.ObjectId,
           },
         ],
-        generalPractitioner: [
+        practitioners: [
           {
-            type: 'ObjectId',
+            type: mongoose.Schema.ObjectId,
             ref: 'Practitioner',
           },
         ],
-        generalPractitionerRole: [
+        practitionerRoles: [
           {
-            type: 'ObjectId',
+            type: mongoose.Schema.ObjectId,
             ref: 'PractitionerRole',
           },
         ],
@@ -64,17 +64,17 @@ module.exports = mongoose => {
           {
             type: String,
             otherPatient: {
-              type: 'ObjectId',
+              type: mongoose.Schema.ObjectId,
               ref: 'Patient',
             },
             otherRelatedPerson: {
-              type: 'ObjectId',
+              type: mongoose.Schema.ObjectId,
               ref: 'RelatedPerson',
             },
           },
         ],
         managingOrganization: {
-          type: 'ObjectId',
+          type: mongoose.Schema.ObjectId,
           ref: 'Organization',
         },
       }
@@ -99,11 +99,20 @@ module.exports = mongoose => {
     'maritalStatus',
     'multipleBirth',
     'communication',
-    'generalOrganization',
+    'organizations',
+    'practitioners',
+    'practitionerRoles',
     'generalPractitioner',
-    'generalPractitionerRole',
     'managingOrganization',
   ];
+
+  Schema.set('toJSON', { virtuals: true });
+
+  Schema
+    .virtual('generalPractitioner')
+    .get(function() {
+      return Object.assign([], this.organizations, this.practitioners, this.practitionerRoles);
+    });
 
   Schema.statics.getAll = function(args) {
     return new Promise(async (resolve, reject) => {
@@ -116,7 +125,10 @@ module.exports = mongoose => {
           {},
           {},
           { sort: { createdAt: 'desc' }, limit: query.limit, skip: query.skip },
-        );
+        )
+        .populate('organizations')
+        .populate('managingOrganization');
+
         resolve(patients.map(resource => ({ resource })));
       } catch (e) {
         reject(e);
