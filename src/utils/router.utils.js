@@ -142,7 +142,7 @@ function configureRoutes(server, options = {}) {
 		);
 
 		// Add a graphiql endpoint for exploring only if we're not in production
-		if (!server.env.IS_PRODUCTION) {
+		if (!server.env.IS_PRODUCTION || process.env.IS_GRAPHIQL) {
 			server.app.use(
 				// Path for this graphiql endpoint
 				`/${version}/([\$])graphiql`,
