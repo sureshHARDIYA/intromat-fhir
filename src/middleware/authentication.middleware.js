@@ -6,6 +6,11 @@ const passport = require('passport');
  * @summary Middleware function for authentication
  */
 module.exports = function authenticationMiddleware(server) {
+  if (process.env.IGNORE_AUTHENTICATION) {
+    process.env.SOF_AUTHENTICATION = 'false';
+    return noopMiddleware;
+  }
+
 	let auth = (server && server.config && server.config.auth) || {};
 	let env = server && server.env;
 

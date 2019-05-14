@@ -4,11 +4,12 @@ const PatientSchema = require('../../schemas/patient.schema.js');
 const BundleSchema = require('../../schemas/bundle.schema.js');
 
 // Arguments
+const PaginationArgs = require('../../parameters/pagination.parameters.js');
 const PatientArgs = require('../../parameters/patient.parameters.js');
 const ResourceArgs = require('../../parameters/resource.parameters.js');
 const DomainResourceArgs = require('../../parameters/domainresource.parameters.js');
 
-let args = Object.assign({}, DomainResourceArgs, ResourceArgs, PatientArgs);
+let args = Object.assign({}, DomainResourceArgs, ResourceArgs, PatientArgs, PaginationArgs);
 
 // Resolvers
 const {

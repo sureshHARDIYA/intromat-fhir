@@ -117,9 +117,10 @@ module.exports = mongoose => {
   Schema.statics.getAll = function(args) {
     return new Promise(async (resolve, reject) => {
       try {
-        const { limit = 10, page = 1 } = args || {};
-        const query = { limit: Math.abs(parseInt(limit, 10) || 10) };
+        const { limit = 100, page = 1 } = args || {};
+        const query = { limit: Math.abs(parseInt(limit, 10) || 100) };
         const currentPage = Math.abs((parseInt(page, 10) || 1) - 1);
+        const total = await this.count();
         query.skip = query.limit * currentPage;
         const patients = await this.find(
           {},
@@ -129,7 +130,13 @@ module.exports = mongoose => {
         .populate('organizations')
         .populate('managingOrganization');
 
-        resolve(patients.map(resource => ({ resource })));
+        resolve({
+          total,
+          pageSize: limit,
+          page: currentPage + 1,
+          totalPage: Math.ceil(total / limit),
+          entry: patients.map(resource => ({ resource })),
+        });
       } catch (e) {
         reject(e);
       }

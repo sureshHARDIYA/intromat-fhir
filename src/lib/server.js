@@ -12,6 +12,7 @@ const express = require('express');
 const helmet = require('helmet');
 const https = require('https');
 const http = require('http');
+const cors = require('cors');
 const fs = require('fs');
 const model = require('../models');
 
@@ -64,6 +65,7 @@ class Server {
 		// Enable the body parser
 		this.app.use(bodyParser.urlencoded({ extended: true }));
 		this.app.use(bodyParser.json());
+		this.app.use(cors());
 		// return self for chaining
 		return this;
 	}
@@ -93,6 +95,10 @@ class Server {
 	}
 
 	configurePassport() {
+	  if (process.env.IGNORE_AUTHENTICATION) {
+	    return this;
+	  }
+
 		let { auth } = this.config;
 		// Only add passport if we have valid configurations
 		if (auth.strategy && auth.name) {

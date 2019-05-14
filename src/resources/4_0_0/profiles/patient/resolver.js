@@ -33,7 +33,7 @@ module.exports.getPatientList = function getPatientList(
 	return new Promise(async (resolve, reject) => {
 		try {
 			const { server: { model }, version, req, res } = context;
-			resolve({ entry: await model.patients.getAll(args) });
+			resolve(await model.patients.getAll(args));
 		} catch (e) {
 			reject(e);
 		}

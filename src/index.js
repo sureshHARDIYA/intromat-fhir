@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { SERVER_CONFIG } = require('./config.js');
 const FHIRServer = require('./lib/server.js');
 
