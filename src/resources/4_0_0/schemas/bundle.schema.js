@@ -2,6 +2,7 @@ const {
 	GraphQLNonNull,
 	GraphQLEnumType,
 	GraphQLList,
+	GraphQLInt,
 	GraphQLObjectType,
 } = require('graphql');
 const IdScalar = require('../scalars/id.scalar.js');
@@ -90,10 +91,17 @@ module.exports = new GraphQLObjectType({
 			description:
 				"If a set of search matches, this is the total number of entries of type 'match' across all pages in the search.  It does not include search.mode = 'include' or 'outcome' entries and it does not provide a count of the number of entries in the Bundle.",
 		},
+		pageSize: {
+			type: GraphQLInt,
+		},
+		page: {
+			type: GraphQLInt,
+		},
 		total: {
-			type: UnsignedIntScalar,
-			description:
-				"If a set of search matches, this is the total number of entries of type 'match' across all pages in the search.  It does not include search.mode = 'include' or 'outcome' entries and it does not provide a count of the number of entries in the Bundle.",
+			type: GraphQLInt,
+		},
+		totalPage: {
+			type: GraphQLInt,
 		},
 		link: {
 			type: new GraphQLList(require('./bundlelink.schema.js')),

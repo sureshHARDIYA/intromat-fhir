@@ -38,6 +38,7 @@ module.exports = (model, number = 10) => {
         family: faker.fake('{{name.lastName}}'),
         prefix: [faker.fake('{{name.prefix}}')],
         suffix: [faker.fake('{{name.suffix}}')],
+        given: [...Array(faker.random.number() % 2 + 1).keys()].map(() => faker.name.firstName()),
       })),
       telecom: [...Array(faker.random.number() % 2 + 1).keys()].map(() => ({
         value: faker.phone.phoneNumberFormat(),
@@ -73,6 +74,7 @@ module.exports = (model, number = 10) => {
           family: faker.fake('{{name.lastName}}'),
           prefix: [faker.fake('{{name.prefix}}')],
           suffix: [faker.fake('{{name.suffix}}')],
+          given: [...Array(faker.random.number() % 2 + 1).keys()].map(() => faker.name.firstName()),
         },
         telecom: [...Array(faker.random.number() % 2 + 1).keys()].map(() => ({
           value: faker.phone.phoneNumberFormat(),
