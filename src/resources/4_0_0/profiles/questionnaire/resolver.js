@@ -33,7 +33,7 @@ module.exports.getQuestionnaireList = function getQuestionnaireList(
 	return new Promise(async (resolve, reject) => {
 		try {
 			const { server: { model }, version, req, res } = context;
-			resolve({ entry: await model.questionnaires.getAll(args) });
+			resolve(await model.questionnaires.getAll(args));
 		} catch (e) {
 			reject(e);
 		}

@@ -8,45 +8,42 @@ const domainResource = require('./types/domainResource');
 
 module.exports = mongoose => {
 	const Schema = new mongoose.Schema(
-		Object.assign(
-			domainResource,
-			{
-				resourceType: {
-					type: String,
-					required: true,
-					enum: ['Questionnaire'],
+		Object.assign(domainResource, {
+			resourceType: {
+				type: String,
+				required: true,
+				enum: ['Questionnaire'],
+			},
+			url: String,
+			identifier: [identifier('Questionnaire')],
+			version: String,
+			name: String,
+			title: String,
+			derivedFrom: [
+				{
+					type: 'ObjectId',
+					ref: 'Questionnaire',
 				},
-				url: String,
-				identifier: [identifier('Questionnaire')],
-				version: String,
-				name: String,
-				title: String,
-				derivedFrom: [
-					{
-						type: 'ObjectId',
-						ref: 'Questionnaire',
-					},
-				],
-				status: {
-					type: String,
-					enum: ['draft', 'active', 'retired', 'unknown'],
-				},
-				experimental: Boolean,
-				subjectType: [codeableConcept],
-				date: Date,
-				publisher: String,
-				contact: [contactDetail],
-				description: String,
-				jurisdiction: [codeableConcept],
-				purpose: String,
-				copyright: String,
-				approvalDate: Date,
-				lastReviewDate: Date,
-				effectivePeriod: [period],
-				code: [coding],
-				item: [questionnaireItem],
-			}
-		),
+			],
+			status: {
+				type: String,
+				enum: ['draft', 'active', 'retired', 'unknown'],
+			},
+			experimental: Boolean,
+			subjectType: [codeableConcept],
+			date: Date,
+			publisher: String,
+			contact: [contactDetail],
+			description: String,
+			jurisdiction: [codeableConcept],
+			purpose: String,
+			copyright: String,
+			approvalDate: Date,
+			lastReviewDate: Date,
+			effectivePeriod: [period],
+			code: [coding],
+			item: [questionnaireItem],
+		}),
 		{
 			timestamps: true,
 		},
@@ -84,16 +81,23 @@ module.exports = mongoose => {
 	Schema.statics.getAll = function(args) {
 		return new Promise(async (resolve, reject) => {
 			try {
-				const { limit = 10, page = 1 } = args || {};
-				const query = { limit: Math.abs(parseInt(limit, 10) || 10) };
+				const { limit = 100, page = 1 } = args || {};
+				const query = { limit: Math.abs(parseInt(limit, 10) || 100) };
 				const currentPage = Math.abs((parseInt(page, 10) || 1) - 1);
+				const total = await this.countDocuments();
 				query.skip = query.limit * currentPage;
 				const questionnaires = await this.find(
 					{},
 					{},
 					{ sort: { createdAt: 'desc' }, limit: query.limit, skip: query.skip },
 				);
-				resolve(questionnaires.map(resource => ({ resource })));
+				resolve({
+					total,
+					pageSize: limit,
+					page: currentPage + 1,
+					totalPage: Math.ceil(total / limit),
+					entry: questionnaires.map(resource => ({ resource })),
+				});
 			} catch (e) {
 				reject(e);
 			}
