@@ -4,6 +4,7 @@ const OrganizationSchema = require('../../schemas/organization.schema.js');
 const BundleSchema = require('../../schemas/bundle.schema.js');
 
 // Arguments
+const PaginationArgs = require('../../parameters/pagination.parameters.js');
 const OrganizationArgs = require('../../parameters/organization.parameters.js');
 const ResourceArgs = require('../../parameters/resource.parameters.js');
 const DomainResourceArgs = require('../../parameters/domainresource.parameters.js');
@@ -13,6 +14,7 @@ let args = Object.assign(
 	DomainResourceArgs,
 	ResourceArgs,
 	OrganizationArgs,
+	PaginationArgs,
 );
 
 // Resolvers
