@@ -154,7 +154,8 @@ module.exports = new GraphQLInputObjectType({
 				"A reference to a value set containing a list of codes representing permitted answers for a 'choice' or 'open-choice' question.",
 		},
 		answerValueSet: {
-			type: CanonicalScalar,
+			// type: CanonicalScalar,
+			type: require('./valueset.input.js'),
 			description:
 				"A reference to a value set containing a list of codes representing permitted answers for a 'choice' or 'open-choice' question.",
 		},

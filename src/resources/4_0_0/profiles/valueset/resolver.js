@@ -9,8 +9,14 @@ module.exports.getValueSet = function getValueSet(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model, app }, version, req, res } = context;
+			resolve(await model.valuesets.getOne(args));
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -24,8 +30,14 @@ module.exports.getValueSetList = function getValueSetList(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			resolve(await model.valuesets.getAll(args));
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -39,8 +51,14 @@ module.exports.getValueSetInstance = function getValueSetInstance(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			resolve(await model.valuesets.getOne(args));
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -54,8 +72,15 @@ module.exports.createValueSet = function createValueSet(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			const valueset = await model.valuesets.createData(args.resource);
+			resolve(valueset)
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -69,8 +94,15 @@ module.exports.updateValueSet = function updateValueSet(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			const valueset = await model.valuesets.updateData(args.id, args.resource);
+			resolve(valueset)
+		} catch(e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -84,6 +116,13 @@ module.exports.removeValueSet = function removeValueSet(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			const valueset = await model.valuesets.removeData(args.id);
+			resolve(valueset)
+		} catch (e) {
+			reject(e);
+		}
+	});
 };

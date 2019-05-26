@@ -54,9 +54,6 @@ module.exports.getPatientInstance = function getPatientInstance(
 	return new Promise(async (resolve, reject) => {
 		try {
 			const { server: { model }, version, req, res } = context;
-			console.log('root:', root)
-			console.log('args:', args)
-
 			resolve(await model.patients.getOne(args));
 		} catch (e) {
 			reject(e);
