@@ -10,7 +10,7 @@ module.exports = mongoose => {
       resourceType: {
         type: String,
         required: true,
-        enum: ['Valueset'],
+        enum: ['ValueSet'],
       },
       url: String,
       identifier: [identifier('ValueSet')],
@@ -73,7 +73,7 @@ module.exports = mongoose => {
         const currentPage = Math.abs((parseInt(page, 10) || 1) - 1);
         const total = await this.count();
         query.skip = query.limit * currentPage;
-        const patients = await this.find(
+        const valuesets = await this.find(
           {},
           {},
           { sort: { createdAt: 'desc' }, limit: query.limit, skip: query.skip },
@@ -84,7 +84,7 @@ module.exports = mongoose => {
           pageSize: limit,
           page: currentPage + 1,
           totalPage: Math.ceil(total / limit),
-          entry: patients.map(resource => ({ resource })),
+          entry: valuesets.map(resource => ({ resource })),
         });
       } catch (e) {
         reject(e);
@@ -118,7 +118,7 @@ module.exports = mongoose => {
               : Object.assign(obj, { [key]: params[key] }),
           {},
         );
-        permitParams.resourceType = 'Valueset';
+        permitParams.resourceType = 'ValueSet';
         resolve(await this.create(permitParams));
       } catch (e) {
         reject(e);
@@ -138,7 +138,7 @@ module.exports = mongoose => {
         Object.entries(params || {}).forEach(
           ([key, value]) => (valueset[key] = value),
         );
-        valueset.resourceType = 'Valueset';
+        valueset.resourceType = 'ValueSet';
         await valueset.save();
 
         resolve(valueset);

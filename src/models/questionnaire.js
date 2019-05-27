@@ -90,7 +90,8 @@ module.exports = mongoose => {
 					{},
 					{},
 					{ sort: { createdAt: 'desc' }, limit: query.limit, skip: query.skip },
-				);
+				).populate('item.answerValueSet');
+
 				resolve({
 					total,
 					pageSize: limit,
@@ -107,7 +108,7 @@ module.exports = mongoose => {
 	Schema.statics.getOne = function(params = {}) {
 		return new Promise(async (resolve, reject) => {
 			try {
-				const questionnaire = await this.findOne(params || {});
+				const questionnaire = await this.findOne(params || {}).populate('item.answerValueSet');
 
 				if (!questionnaire) {
 					throw new Error('Questionnaire not found');
@@ -131,7 +132,8 @@ module.exports = mongoose => {
 					{},
 				);
 				permitParams.resourceType = 'Questionnaire';
-				resolve(await this.create(permitParams));
+				const questionnaire = await this.create(permitParams);
+				resolve(await this.findOne({ _id: questionnaire._id }).populate('item.answerValueSet'));
 			} catch (e) {
 				reject(e);
 			}

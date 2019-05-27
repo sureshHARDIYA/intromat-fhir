@@ -1,5 +1,4 @@
 const coding = require('./coding');
-const answerValueSet = require('./answerValueSet');
 const questionnaireItem = require('./questionnaireItem');
 const questionnaireAnswerQuantity = require('./questionnaireAnswerQuantity');
 const questionnaireAnswerReference = require('./questionnaireAnswerReference');
@@ -57,7 +56,10 @@ module.exports = {
 	repeats: Boolean,
 	readOnly: Boolean,
 	maxLength: Number,
-	answerValueSet: answerValueSet,
+	answerValueSet: {
+		type: 'ObjectId',
+		ref: 'Valueset',
+	},
 	answerOption: [
 		{
 			id: String,
