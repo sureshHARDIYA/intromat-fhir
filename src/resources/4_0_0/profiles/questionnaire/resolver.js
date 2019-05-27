@@ -1,3 +1,5 @@
+const service = require('../../../../services/valueset');
+
 /**
  * @name exports.getQuestionnaire
  * @static
@@ -75,7 +77,8 @@ module.exports.createQuestionnaire = function createQuestionnaire(
 	return new Promise(async (resolve, reject) => {
 		try {
 			const { server: { model }, version, req, res } = context;
-			const questionnaire = await model.questionnaires.createData(args.resource);
+			const resource = await service.findOrCreate(args.resource, model);
+			const questionnaire = await model.questionnaires.createData(resource);
 			resolve(questionnaire)
 		} catch (e) {
 			reject(e);
@@ -97,7 +100,8 @@ module.exports.updateQuestionnaire = function updateQuestionnaire(
 	return new Promise(async (resolve, reject) => {
 		try {
 			const { server: { model }, version, req, res } = context;
-			const questionnaire = await model.questionnaires.updateData(args.id, args.resource);
+			const resource = service.findOrCreate(args.resource, model);
+			const questionnaire = await model.questionnaires.updateData(args.id, resource);
 			resolve(questionnaire)
 		} catch(e) {
 			reject(e);
