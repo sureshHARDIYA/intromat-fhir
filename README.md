@@ -585,3 +585,58 @@ mutation QuestionnaireUpdate {
   }
 }
 ```
+
+## Mutation Delete
+
+```
+mutation deletQuestionnaire {
+ 	QuestionnaireRemove(id: "5cee8e42d77e8d5b06e24ce0")  {
+    id
+  }
+}
+```
+
+# ValueSet
+
+## Query ValueSet
+
+```
+query ValueSet {
+          ValueSet(_id: "5cee8e42d77e8d5b06e24cd7") {
+            id
+            resourceType
+            url
+            identifier {
+              system
+              value
+            }
+            version
+            name
+            title
+            status
+            publisher
+            description
+  					compose {
+              include {
+                concept {
+                  display
+                  extension {
+                    valueDecimal
+                  }
+                }
+              }
+            }
+        }
+}
+
+```
+
+## Mutation DELETE valueSet
+
+```
+mutation removeValueSet {
+  ValueSetRemove(id: "5cee8e42d77e8d5b06e24cd7") {
+    id
+  }
+}
+```
