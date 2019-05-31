@@ -8,7 +8,7 @@ module.exports = {
     {
       code: String,
       display: String,
-      extension: extension,
+      extension: [extension],
       designation: [
         {
           language: String,
