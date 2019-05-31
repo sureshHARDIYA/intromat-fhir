@@ -1,4 +1,5 @@
 const coding = require('./coding');
+const extension = require('./extension');
 
 module.exports = {
   system: String,
@@ -7,6 +8,7 @@ module.exports = {
     {
       code: String,
       display: String,
+      extension: [extension],
       designation: [
         {
           language: String,
