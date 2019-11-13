@@ -9,8 +9,14 @@ module.exports.getPractitioner = function getPractitioner(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model, app }, version, req, res } = context;
+			resolve(await model.practitioners.getOne(args));
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -24,8 +30,14 @@ module.exports.getPractitionerList = function getPractitionerList(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			resolve(await model.practitioners.getAll(args));
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -39,8 +51,14 @@ module.exports.getPractitionerInstance = function getPractitionerInstance(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			resolve(await model.practitioners.getOne(args));
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -54,8 +72,15 @@ module.exports.createPractitioner = function createPractitioner(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			const practitioner = await model.practitioners.createData(args.resource);
+			resolve(practitioner)
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -69,8 +94,15 @@ module.exports.updatePractitioner = function updatePractitioner(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			const practitioner = await model.practitioners.updateData(args.id, args.resource);
+			resolve(practitioner)
+		} catch(e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -84,6 +116,13 @@ module.exports.removePractitioner = function removePractitioner(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			const practitioner = await model.practitioners.removeData(args.id);
+			resolve(practitioner)
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
