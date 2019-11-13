@@ -26,7 +26,6 @@ module.exports.getPersonList = function getPersonList(
 	context = {},
 	info,
 ) {
-
 	return new Promise(async (resolve, reject) => {
 		try {
 			const { server: { model }, version, req, res } = context;
@@ -48,7 +47,6 @@ module.exports.getPersonInstance = function getPersonInstance(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
 	return new Promise(async (resolve, reject) => {
 		try {
 			const { server: { model }, version, req, res } = context;
@@ -72,7 +70,6 @@ module.exports.createPerson = function createPerson(
 ) {
 	return new Promise(async (resolve, reject) => {
 		try {
-			console.log("Executed");
 			const { server: { model }, version, req, res } = context;
 			const person = await model.people.createData(args.resource);
 			resolve(person)

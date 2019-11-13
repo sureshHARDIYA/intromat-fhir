@@ -65,8 +65,6 @@ module.exports = mongoose => {
 		'link'
 	];
 
-	Schema.set('toJSON', { virtuals: true });
-
 	Schema.statics.getAll = function(args) {
 		return new Promise( async (resolve, reject) => {
 				try {
@@ -98,7 +96,7 @@ module.exports = mongoose => {
 	Schema.statics.getOne = function(params = {}){
 		return new Promise( async (resolve, reject) => {
 				try {
-					const person = await this.find(params || {});
+					const person = await this.findOne(params || {});
 
 					if (!person){
 						throw new Error('Person not found');
