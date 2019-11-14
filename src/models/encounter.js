@@ -21,7 +21,7 @@ module.exports = mongoose => {
 			statusHistory: [statusHistory],
 			class: codeableConcept,
 			classHistory: [classHistory],
-			type: codeableConcept,
+			type: [codeableConcept],
 			serviceType: codeableConcept,
 			priority: codeableConcept,
 			subjectPatient: {
@@ -32,17 +32,17 @@ module.exports = mongoose => {
 				type: mongoose.Schema.ObjectId,
 				ref: 'Group',
 			},
-			episodeOfCare: {
+			episodeOfCare: [{
 				type: 'ObjectId',
 				ref: 'EpisodeOfCare',
-			},
-			basedOn: {
+			}],
+			basedOn: [{
 				type: 'ObjectId',
 				ref: 'ServiceRequest',
-			},
+			}],
 			Participant: [
 				{
-					type: codeableConcept,
+					type: [codeableConcept],
 					period: period,
 					individualPractitioner: {
 						type: mongoose.Schema.ObjectId,
@@ -58,32 +58,32 @@ module.exports = mongoose => {
 					},
 				},
 			],
-			appointment: {
+			appointment: [{
 				type: 'ObjectID',
 				ref: 'Appointment',
-			},
+			}],
 			period: period,
 			length: String,
 			reasonCode: [codeableConcept],
-			reasonReferenceCondition: {
+			reasonReferenceCondition: [{
 				type: mongoose.Schema.ObjectId,
 				ref: 'Condition',
-			},
+			}],
 
-			reasonReferenceProcedure: {
+			reasonReferenceProcedure: [{
 				type: mongoose.Schema.ObjectId,
 				ref: 'Procedure',
-			},
+			}],
 
-			reasonReferenceObservation: {
+			reasonReferenceObservation: [{
 				type: mongoose.Schema.ObjectId,
 				ref: 'Observation',
-			},
+			}],
 
-			reasonReferenceImmunizationRecommendation: {
+			reasonReferenceImmunizationRecommendation: [{
 				type: mongoose.Schema.ObjectId,
 				ref: 'ImmunizationRecommendation',
-			},
+			}],
 			diagnosis: [
 				{
 					conditionCondition: {
@@ -116,9 +116,9 @@ module.exports = mongoose => {
 				},
 				admitSource: codeableConcept,
 				reAdmission: codeableConcept,
-				dietPreference: codeableConcept,
-				specialCourtesy: codeableConcept,
-				specialArrangement: codeableConcept,
+				dietPreference: [codeableConcept],
+				specialCourtesy: [codeableConcept],
+				specialArrangement: [codeableConcept],
 				destinationLocation: {
 					type: mongoose.Schema.ObjectId,
 					ref: 'Location',
@@ -174,6 +174,9 @@ module.exports = mongoose => {
 		'diagnosis',
 		'account',
 		'hospitalization',
+		'location',
+		'serviceProvider',
+		'partOf'
 	];
 
 

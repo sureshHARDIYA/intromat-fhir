@@ -53,10 +53,10 @@ module.exports = mongoose => {
 				},
 			],
 			availabilityExceptions: String,
-			endpoint: {
+			endpoint: [{
 				type: mongoose.Schema.ObjectId,
 				ref: 'Endpoint',
-			},
+			}],
 			}),
 			{
 				timestamps:true,
