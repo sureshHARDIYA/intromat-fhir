@@ -370,8 +370,7 @@ module.exports = mongoose => {
 		);
 	});
 
-	Schema.statics.getAll = function(args) {
-		return new Promise(async (resolve, reject) => {
+	Schema.statics.getAll = async function(args) {
 			try {
 				const { limit = 100, page = 1 } = args || {};
 				const query = { limit: Math.abs(parseInt(limit, 10) || 100) };
@@ -384,7 +383,7 @@ module.exports = mongoose => {
 					{ sort: { createdAt: 'desc' }, limit: query.limit, skip: query.skip },
 				);
 
-				resolve({
+				return ({
 					total,
 					pageSize: limit,
 					page: currentPage + 1,
@@ -392,13 +391,12 @@ module.exports = mongoose => {
 					entry: observations.map(resource => ({ resource })),
 				});
 			} catch (e) {
-				reject(e);
+				console.log('Observation error: ', e);
 			}
-		});
+
 	};
 
-	Schema.statics.getOne = function(params = {}) {
-		return new Promise(async (resolve, reject) => {
+	Schema.statics.getOne = async function(params = {}) {
 			try {
 				const observation = await this.findOne(params || {});
 
@@ -406,15 +404,13 @@ module.exports = mongoose => {
 					throw new Error('Observation not found');
 				}
 
-				resolve(observation);
+				return observation;
 			} catch (e) {
-				reject(e);
+				console.log('Observation error: ', e);
 			}
-		});
 	};
 
-	Schema.statics.createData = function(params = {}) {
-		return new Promise(async (resolve, reject) => {
+	Schema.statics.createData = async function(params = {}) {
 			try {
 				const permitParams = permitFields.reduce(
 					(obj, key) =>
@@ -424,15 +420,13 @@ module.exports = mongoose => {
 					{},
 				);
 				permitParams.resourceType = 'Observation';
-				resolve(await this.create(permitParams));
+				return (await this.create(permitParams));
 			} catch (e) {
-				reject(e);
+				console.log('Observation error: ', e);
 			}
-		});
 	};
 
-	Schema.statics.updateData = function(_id, params = {}) {
-		return new Promise(async (resolve, reject) => {
+	Schema.statics.updateData = async function(_id, params = {}) {
 			try {
 				const observation = await this.findOne({ _id });
 
@@ -446,15 +440,13 @@ module.exports = mongoose => {
 				observation.resourceType = 'Observation';
 				await observation.save();
 
-				resolve(observation);
+				return (observation);
 			} catch (e) {
-				reject(e);
+				console.log('Observation error: ', e);
 			}
-		});
 	};
 
-	Schema.statics.removeData = function(_id) {
-		return new Promise(async (resolve, reject) => {
+	Schema.statics.removeData = async function(_id) {
 			try {
 				const observation = await this.findOne({ _id });
 
@@ -463,11 +455,10 @@ module.exports = mongoose => {
 				}
 
 				await observation.remove();
-				resolve(observation);
+				return (observation);
 			} catch (e) {
-				reject(e);
+				console.log('Observation error: ', e);
 			}
-		});
 	};
 
 	return mongoose.model('Observation', Schema);
