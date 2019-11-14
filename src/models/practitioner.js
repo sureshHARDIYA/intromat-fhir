@@ -57,105 +57,95 @@ module.exports = mongoose => {
 		'organization'
 	];
 
-	Schema.statics.getAll = function (args) {
-		return new Promise(async (resolve, reject) => {
-			try {
-				const { limit = 100, page = 1 } = args || {};
-				const query = { limit: Math.abs(parseInt(limit, 10) || 100) };
-				const currentPage = Math.abs((parseInt(page, 10) || 1) - 1);
-				const total = await this.countDocuments();
-				query.skip = query.limit * currentPage;
-				const practitioners = await this.find(
-					{},
-					{},
-					{ sort: { createdAt: 'desc' }, limit: query.limit, skip: query.skip },
-				);
-				resolve({
-					total,
-					pageSize: limit,
-					page: currentPage + 1,
-					totalPage: Math.ceil(total / limit),
-					entry: practitioners.map(resource => ({ resource })),
-				});
-			} catch (e) {
-				reject(e);
-			}
-		});
+	Schema.statics.getAll = async function (args) {
+		try {
+			const {limit = 100, page = 1} = args || {};
+			const query = {limit: Math.abs(parseInt(limit, 10) || 100)};
+			const currentPage = Math.abs((parseInt(page, 10) || 1) - 1);
+			const total = await this.countDocuments();
+			query.skip = query.limit * currentPage;
+			const practitioners = await this.find(
+				{},
+				{},
+				{sort: {createdAt: 'desc'}, limit: query.limit, skip: query.skip},
+			);
+			return ({
+				total,
+				pageSize: limit,
+				page: currentPage + 1,
+				totalPage: Math.ceil(total / limit),
+				entry: practitioners.map(resource => ({resource})),
+			});
+		} catch (e) {
+			console.log('Practitioner error', e);
+		}
 	};
 
-	Schema.statics.getOne = function (params = {}) {
-		return new Promise(async (resolve, reject) => {
-			try {
-				const practitioner = await this.findOne(params || {});
+	Schema.statics.getOne = async function (params = {}) {
+		try {
+			const practitioner = await this.findOne(params || {});
 
-				if (!practitioner) {
-					throw new Error('Patient not found');
-				}
-
-				resolve(practitioner);
-			} catch (e) {
-				reject(e);
+			if (!practitioner) {
+				throw new Error('Patient not found');
 			}
-		});
+
+			return (practitioner);
+		} catch (e) {
+			console.log('Practitioner error', e);
+		}
 	};
 
-	Schema.statics.createData = function (params = {}) {
-		return new Promise(async (resolve, reject) => {
-			try {
-				const permitParams = permitFields.reduce(
-					(obj, key) =>
-						[undefined, null].includes(params[key])
-							? obj
-							: Object.assign(obj, {[key]: params[key]}),
-					{},
-				);
-				permitParams.resourceType = 'Practitioner';
-				resolve(await this.create(permitParams));
-			} catch (e) {
-				reject(e);
-			}
-		});
+	Schema.statics.createData = async function (params = {}) {
+		try {
+			const permitParams = permitFields.reduce(
+				(obj, key) =>
+					[undefined, null].includes(params[key])
+						? obj
+						: Object.assign(obj, {[key]: params[key]}),
+				{},
+			);
+			permitParams.resourceType = 'Practitioner';
+			return (await this.create(permitParams));
+		} catch (e) {
+			console.log('Practitioner error', e);
+		}
 	};
 
-	Schema.statics.updateData = function (_id, params = {}) {
-		return new Promise(async (resolve, reject) => {
-			try {
-				const practitioner = await this.findOne({_id});
+	Schema.statics.updateData = async function (_id, params = {}) {
+		try {
+			const practitioner = await this.findOne({_id});
 
-				if (!practitioner) {
-					throw new Error('Practitioner not found');
-				}
-
-				Object.entries(params || {}).forEach(
-					([key, value]) => (practitioner[key] = value),
-				);
-				practitioner.resourceType = 'Practitioner';
-				await practitioner.save();
-
-				resolve(practitioner);
-			} catch (e) {
-				reject(e);
+			if (!practitioner) {
+				throw new Error('Practitioner not found');
 			}
-		});
+
+			Object.entries(params || {}).forEach(
+				([key, value]) => (practitioner[key] = value),
+			);
+			practitioner.resourceType = 'Practitioner';
+			await practitioner.save();
+
+			return (practitioner);
+		} catch (e) {
+			console.log('Practitioner error', e);
+		}
 	};
 
-	Schema.statics.removeData = function (_id) {
-		return new Promise(async (resolve, reject) => {
-			try {
-				const practitioner = await this.findOne({_id});
+	Schema.statics.removeData = async function (_id) {
+		try {
+			const practitioner = await this.findOne({_id});
 
-				if (!practitioner) {
-					throw new Error('Practitioner not found');
-				}
-
-				await practitioner.remove();
-				resolve(practitioner);
-			} catch (e) {
-				reject(e);
+			if (!practitioner) {
+				throw new Error('Practitioner not found');
 			}
-		});
+
+			await practitioner.remove();
+			return (practitioner);
+		} catch (e) {
+			console.log('Practitioner error', e);
+		}
 	};
 
 	return mongoose.model('Practitioner', Schema);
-
 };
+
