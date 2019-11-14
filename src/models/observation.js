@@ -1,12 +1,11 @@
-
-const identifier = require('./types/identifier');
-const status = require('./types/observationStatus');
-const codeableConcept = require('./types/codeableConcept');
 const period = require('./types/period');
 const quantity = require('./types/quantity');
+const identifier = require('./types/identifier');
+const status = require('./types/observationStatus');
 const referenceRange = require('./types/referenceRange');
-const observationComponent = require('./types/observationComponent');
 const domainResource = require('./types/domainResource');
+const codeableConcept = require('./types/codeableConcept');
+const observationComponent = require('./types/observationComponent');
 
 module.exports = mongoose => {
 	const Schema = new mongoose.Schema(
