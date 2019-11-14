@@ -921,3 +921,404 @@ mutation PractitionerRemove {
     }
 }
 ```
+
+# Person
+
+## QUERY Person
+
+```
+query Person {
+    Person(_id: "5dcaa7f02eb0b70e90761396"){
+        name {
+            use
+            text
+            family
+        }
+        birthDate
+        gender
+        active
+        address {
+            line
+        }
+    }
+}
+```
+
+## Mutation CREATE
+
+```
+mutation PersonCreate {
+    PersonCreate(
+            resource: {
+              resourceType: Person,
+              identifier: [
+                {
+                  use: "usual",
+                  type: {
+                    coding: [
+                      {
+                        system: "http://terminology.hl7.org/CodeSystem/v2-0203",
+                        code: "MR"
+                      }
+                    ]
+                  },
+                  system: "urn:oid:1.2.36.146.595.217.0.1",
+                  value: "12345",
+                  period: {
+                    start: "2001-05-06"
+                  },
+                  assigner: {
+                    display: "Acme Healthcare"
+                  }
+                }
+              ],
+              name: [
+                {
+                  use: "official",
+                  family: "Chalmers",
+                  given: [
+                    "Peter",
+                    "James"
+                  ]
+                },
+                {
+                  use: "usual",
+                  given: [
+                    "Jim"
+                  ]
+                }
+              ],
+              telecom: [
+                {
+                  use: "home"
+                },
+                {
+                  system: "phone",
+                  value: "(03) 5555 6473",
+                  use: "work"
+                },
+                {
+                  system: "email",
+                  value: "Jim@example.org",
+                  use: "home"
+                }
+              ],
+              gender: "male",
+              birthDate: "1974-12-25",
+              address: [
+                {
+                  use: "home",
+                  line: [
+                    "534 Erewhon St"
+                  ],
+                  city: "PleasantVille",
+                  state: "Vic",
+                  postalCode: "3999"
+                }
+              ],
+              active: true,
+            }
+    ),
+    {
+        id
+    }
+}
+```
+
+## Mutation UPDATE
+
+```
+mutation PersonUpdate {
+    PersonUpdate(
+            id: "5dcaa7f02eb0b70e90761396"
+            resource: {
+              resourceType: Person,
+              identifier: [
+                {
+                  use: "usual",
+                  type: {
+                    coding: [
+                      {
+                        system: "http://terminology.hl7.org/CodeSystem/v2-0203",
+                        code: "MR"
+                      }
+                    ]
+                  },
+                  system: "urn:oid:1.2.36.146.595.217.0.1",
+                  value: "12345",
+                  period: {
+                    start: "2001-05-06"
+                  },
+                  assigner: {
+                    display: "Acme Healthcare"
+                  }
+                }
+              ],
+              name: [
+                {
+                  use: "official",
+                  family: "Johnson",
+                  given: [
+                    "Peter",
+                    "James"
+                  ]
+                },
+                {
+                  use: "usual",
+                  given: [
+                    "Jim"
+                  ]
+                }
+              ],
+              telecom: [
+                {
+                  use: "home"
+                },
+                {
+                  system: "phone",
+                  value: "(99) 5555 9999",
+                  use: "work"
+                },
+                {
+                  system: "email",
+                  value: "Jim@example.org",
+                  use: "home"
+                }
+              ],
+              gender: "male",
+              birthDate: "1974-12-25",
+              address: [
+                {
+                  use: "home",
+                  line: [
+                    "534 Erewhon St"
+                  ],
+                  city: "PeasantVille",
+                  state: "Vic",
+                  postalCode: "3999"
+                }
+              ],
+              active: true,
+            }
+    ),
+    {
+        id
+    }
+}
+```
+
+## Mutation DELETE
+
+```
+mutation deletePerson {
+ 	PersonRemove(id: "5dcbfe0d863b3f04e46ebbb6")  {
+    id
+  }
+}
+```
+
+# Encounter
+## Query Encounter (Single)
+```
+query Encounter{
+    
+    Encounter(_id: "5dcd0b739f814f507c1cb86e"){
+        id
+        status
+    }
+}
+```
+## Query Encounter (List)
+```
+query EncounterList {
+  EncounterList {
+    entry {
+      resource {
+        ...on Encounter {
+          id
+          resourceType
+          status
+        }
+      }
+    }
+  }
+}
+```
+## Mutation Create Encounter
+```
+mutation EncounterCreate{
+    EncounterCreate(resource: {
+  resourceType: Encounter,
+  id: "2",
+  text: {
+    status: "generated",
+    div: "<div xmlns=\"http://www.w3.org/1999/xhtml\">Encounter with patient @example</div>",
+  },
+  status: "triaged",
+  class: {
+    system: "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    code: "IMP",
+    display: "inpatient encounter",
+  },
+ },
+)
+    
+    {
+    id
+ }
+}
+```
+## Mutation Update Encounter
+```
+mutation EncounterUpdate{
+    EncounterUpdate( id: "5dcd0b739f814f507c1cb86e", resource: {
+  resourceType: Encounter,
+  status: "arrived",
+  class: {
+    system: "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    code: "IMP",
+    display: "inpatient encounter",
+  },
+  }
+)
+  {
+    id
+    status
+  }
+}
+```
+## Mutation Delete Encounter
+```
+mutation EncounterRemove{
+    EncounterRemove( id: "5dcd0ccaa442951b54c07b36"){
+        
+    id       
+    }
+}
+```
+
+# Location
+## Query Location (Single)
+```
+query Location{
+    
+    Location(_id: "5dcbfe529f0ecb264c1790ef"){
+        id
+        name
+    }
+    
+}
+```
+## Query Location (List)
+```
+query LocationList {
+  LocationList {
+    entry {
+      resource {
+        ...on Location {
+          id
+          resourceType
+          status
+        }
+      }
+    }
+  }
+}
+```
+## Mutation Create Location
+```
+mutation LocationCreate{
+    LocationCreate(resource: {
+  resourceType: Location,
+    id: "1",
+  text: {
+    status: "generated",
+    div: "<div xmlns=\"http://www.w3.org/1999/xhtml\">Burgers UMC, South Wing, second floor</div>"
+  },
+  identifier: [
+    {
+      value: "B1-S.F2"
+    }
+  ],
+  status: "active",
+  name: "South Wing, second floor",
+  alias: [
+    "BU MC, SW, F2",
+    "Burgers University Medical Center, South Wing, second floor"
+  ],
+  description: "Second floor of the Old South Wing, formerly in use by Psychiatry",
+  mode: "instance",
+  telecom: [
+    {
+      system: "phone",
+      value: "2328",
+      use: "work"
+    },
+    {
+      system: "fax",
+      value: "2329",
+      use: "work"
+    },
+    {
+      system: "email",
+      value: "second wing admissions"
+    },
+    {
+      system: "url",
+      value: "http://sampleorg.com/southwing",
+      use: "work"
+    }
+  ],
+  address: {
+    use: "work",
+    line: [
+      "Galapagosweg 91, Building A"
+    ],
+    city: "Den Burg",
+    postalCode: "9105 PZ",
+    country: "NLD"
+  },
+  physicalType: {
+    coding: [
+      {
+        system: "http://terminology.hl7.org/CodeSystem/location-physical-type",
+        code: "wi",
+        display: "Wing"
+      }
+    ]
+  },
+  position: {
+    longitude: -83.6945691,
+    latitude: 42.25475478,
+    altitude: 0
+  },
+
+  }
+)
+  {
+    id
+  }
+}
+```
+## Mutation Update Location
+```
+mutation LocationUpdate{
+    LocationUpdate( id: "5dcbfe529f0ecb264c1790ef", resource: {
+  resourceType: Location,
+  name: "South Wing, The top floor",
+  }
+)
+  {
+    id
+  }
+}
+```
+## Mutation Delete Location
+```
+mutation LocationRemove{
+    LocationRemove( id: "5dcbfe529f0ecb264c1790ef"){
+        
+    id       
+    }
+}
+```
