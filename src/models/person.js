@@ -1,9 +1,9 @@
-const identifier = require('./types/identifier');
-const humanName = require('./types/humanName');
-const contactPoint = require('./types/contactPoint');
 const gender = require('./types/gender');
 const address = require('./types/address');
+const humanName = require('./types/humanName');
+const identifier = require('./types/identifier');
 const attachment = require('./types/attachment');
+const contactPoint = require('./types/contactPoint');
 const domainResource = require('./types/domainResource');
 
 module.exports = mongoose => {
