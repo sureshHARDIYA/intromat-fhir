@@ -9,8 +9,14 @@ module.exports.getLocation = function getLocation(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model, app }, version, req, res } = context;
+			resolve(await model.locations.getOne(args));
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -24,8 +30,14 @@ module.exports.getLocationList = function getLocationList(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			resolve(await model.locations.getAll(args));
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -39,8 +51,14 @@ module.exports.getLocationInstance = function getLocationInstance(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			resolve(await model.locations.getOne(args));
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -54,10 +72,16 @@ module.exports.createLocation = function createLocation(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const {server: {model}, version, req, res} = context;
+			const location = await model.locations.createData(args.resource);
+			resolve(location)
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
-
 /**
  * @name exports.updateLocation
  * @static
@@ -69,8 +93,15 @@ module.exports.updateLocation = function updateLocation(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			const location = await model.locations.updateData(args.id, args.resource);
+			resolve(location)
+		} catch(e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -84,6 +115,13 @@ module.exports.removeLocation = function removeLocation(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			const location = await model.locations.removeData(args.id);
+			resolve(location)
+		} catch (e) {
+			reject(e);
+		}
+	});
 };

@@ -9,8 +9,14 @@ module.exports.getEncounter = function getEncounter(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model, app }, version, req, res } = context;
+			resolve(await model.encounters.getOne(args));
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -24,8 +30,14 @@ module.exports.getEncounterList = function getEncounterList(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			resolve(await model.encounters.getAll(args));
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -39,8 +51,14 @@ module.exports.getEncounterInstance = function getEncounterInstance(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			resolve(await model.encounters.getOne(args));
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -54,8 +72,15 @@ module.exports.createEncounter = function createEncounter(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const {server: {model}, version, req, res} = context;
+			const encounter = await model.encounters.createData(args.resource);
+			resolve(encounter)
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -69,8 +94,15 @@ module.exports.updateEncounter = function updateEncounter(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			const encounter = await model.encounters.updateData(args.id, args.resource);
+			resolve(encounter)
+		} catch(e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -84,6 +116,13 @@ module.exports.removeEncounter = function removeEncounter(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			const encounter = await model.encounters.removeData(args.id);
+			resolve(encounter)
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
