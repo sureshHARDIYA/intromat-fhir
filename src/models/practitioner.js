@@ -1,12 +1,12 @@
 const gender = require('./types/gender');
+const period = require('./types/period');
 const address = require('./types/address');
-const identifier = require('./types/identifier');
 const humanName = require('./types/humanName');
+const identifier = require('./types/identifier');
 const attachment = require('./types/attachment');
 const contactPoint = require('./types/contactPoint');
 const domainResource = require('./types/domainResource');
 const codeableConcept = require('./types/codeableConcept');
-const period = require('./types/period');
 
 module.exports = mongoose => {
 	const Schema = new mongoose.Schema(
