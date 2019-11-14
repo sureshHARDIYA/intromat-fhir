@@ -12,7 +12,7 @@ module.exports = mongoose => {
 			resourceType: {
 				type: String,
 				required: true,
-				enum: ['Encounter'],
+				enum: ['auditEvent'],
 			},
 			type: codeableConcept,
 			subtype: [codeableConcept],

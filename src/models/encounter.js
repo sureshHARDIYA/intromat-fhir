@@ -40,9 +40,9 @@ module.exports = mongoose => {
 				type: 'ObjectId',
 				ref: 'ServiceRequest',
 			}],
-			Participant: [
+			participant: [
 				{
-					type: [codeableConcept],
+					type: codeableConcept,
 					period: period,
 					individualPractitioner: {
 						type: mongoose.Schema.ObjectId,
