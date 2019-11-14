@@ -19,11 +19,11 @@ module.exports = mongoose => {
 			identifier: [identifier('Practitioner')],
 			active: Boolean,
 			name: [humanName],
-			telecom: contactPoint,
+			telecom: [contactPoint],
 			address: [address],
 			gender,
 			birthDate: Date,
-			photo: attachment,
+			photo: [attachment],
 			communication: [codeableConcept],
 			qualification: [
 				{
