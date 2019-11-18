@@ -641,6 +641,7 @@ mutation removeValueSet {
 }
 ```
 
+
 # Observation
 
 ## Query Observation (single)
@@ -919,5 +920,199 @@ mutation PractitionerRemove {
     PractitionerRemove(id: "5dcbc549e51df012c84ff716") {
       id  
     }
+}
+
+# Person
+
+## QUERY Person
+
+```
+query Person {
+    Person(_id: "5dcaa7f02eb0b70e90761396"){
+        name {
+            use
+            text
+            family
+        }
+        birthDate
+        gender
+        active
+        address {
+            line
+        }
+    }
+}
+```
+
+## Mutation CREATE
+
+```
+mutation PersonCreate {
+    PersonCreate(
+            resource: {
+              resourceType: Person,
+              identifier: [
+                {
+                  use: "usual",
+                  type: {
+                    coding: [
+                      {
+                        system: "http://terminology.hl7.org/CodeSystem/v2-0203",
+                        code: "MR"
+                      }
+                    ]
+                  },
+                  system: "urn:oid:1.2.36.146.595.217.0.1",
+                  value: "12345",
+                  period: {
+                    start: "2001-05-06"
+                  },
+                  assigner: {
+                    display: "Acme Healthcare"
+                  }
+                }
+              ],
+              name: [
+                {
+                  use: "official",
+                  family: "Chalmers",
+                  given: [
+                    "Peter",
+                    "James"
+                  ]
+                },
+                {
+                  use: "usual",
+                  given: [
+                    "Jim"
+                  ]
+                }
+              ],
+              telecom: [
+                {
+                  use: "home"
+                },
+                {
+                  system: "phone",
+                  value: "(03) 5555 6473",
+                  use: "work"
+                },
+                {
+                  system: "email",
+                  value: "Jim@example.org",
+                  use: "home"
+                }
+              ],
+              gender: "male",
+              birthDate: "1974-12-25",
+              address: [
+                {
+                  use: "home",
+                  line: [
+                    "534 Erewhon St"
+                  ],
+                  city: "PleasantVille",
+                  state: "Vic",
+                  postalCode: "3999"
+                }
+              ],
+              active: true,
+            }
+    ),
+    {
+        id
+    }
+}
+```
+
+## Mutation UPDATE
+
+```
+mutation PersonUpdate {
+    PersonUpdate(
+            id: "5dcaa7f02eb0b70e90761396"
+            resource: {
+              resourceType: Person,
+              identifier: [
+                {
+                  use: "usual",
+                  type: {
+                    coding: [
+                      {
+                        system: "http://terminology.hl7.org/CodeSystem/v2-0203",
+                        code: "MR"
+                      }
+                    ]
+                  },
+                  system: "urn:oid:1.2.36.146.595.217.0.1",
+                  value: "12345",
+                  period: {
+                    start: "2001-05-06"
+                  },
+                  assigner: {
+                    display: "Acme Healthcare"
+                  }
+                }
+              ],
+              name: [
+                {
+                  use: "official",
+                  family: "Johnson",
+                  given: [
+                    "Peter",
+                    "James"
+                  ]
+                },
+                {
+                  use: "usual",
+                  given: [
+                    "Jim"
+                  ]
+                }
+              ],
+              telecom: [
+                {
+                  use: "home"
+                },
+                {
+                  system: "phone",
+                  value: "(99) 5555 9999",
+                  use: "work"
+                },
+                {
+                  system: "email",
+                  value: "Jim@example.org",
+                  use: "home"
+                }
+              ],
+              gender: "male",
+              birthDate: "1974-12-25",
+              address: [
+                {
+                  use: "home",
+                  line: [
+                    "534 Erewhon St"
+                  ],
+                  city: "PeasantVille",
+                  state: "Vic",
+                  postalCode: "3999"
+                }
+              ],
+              active: true,
+            }
+    ),
+    {
+        id
+    }
+}
+```
+
+## Mutation DELETE
+
+```
+mutation deletePerson {
+ 	PersonRemove(id: "5dcbfe0d863b3f04e46ebbb6")  {
+    id
+  }
 }
 ```
