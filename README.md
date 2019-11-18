@@ -641,6 +641,7 @@ mutation removeValueSet {
 }
 ```
 
+
 # Observation
 
 ## Query Observation (single)
@@ -920,6 +921,7 @@ mutation PractitionerRemove {
       id  
     }
 }
+
 ```
 
 # Person
@@ -1322,3 +1324,4 @@ mutation LocationRemove{
     }
 }
 ```
+
