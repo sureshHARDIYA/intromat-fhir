@@ -641,6 +641,287 @@ mutation removeValueSet {
 }
 ```
 
+
+# Observation
+
+## Query Observation (single)
+```
+query Observation {
+    Observation(_id: "5dcc0734d39e0045d82b6eae") {
+        id
+        status
+    }
+}
+```
+
+## Query Observation (list)
+```
+query ObservationList {
+  ObservationList {
+    entry {
+      resource {
+        ...on Observation {
+          id
+          resourceType
+        }
+      }
+    }
+  }
+}
+```
+
+## Mutation Create Observation
+```
+mutation ObservationCreate {
+    ObservationCreate(resource: {
+
+  resourceType: Observation,
+  status: "final",
+  category: [
+    {
+      coding: [
+        {
+          system: "http://terminology.hl7.org/CodeSystem/observation-category",
+          code: "vital-signs",
+          display: "Vital Signs"
+        }
+      ]
+    }
+  ],
+  code: {
+    coding: [
+      {
+        system: "http://loinc.org",
+        code: "29463-7",
+        display: "Body Weight"
+      },
+      {
+        system: "http://loinc.org",
+        code: "3141-9",
+        display: "Body weight Measured"
+      },
+      {
+        system: "http://snomed.info/sct",
+        code: "27113001",
+        display: "Body weight"
+      },
+      {
+        system: "http://acme.org/devices/clinical-codes",
+        code: "body-weight",
+        display: "Body Weight"
+      }
+    ]
+  },
+  effectiveDateTime: "2016-03-28",
+  valueQuantity: {
+    value: 185,
+    unit: "lbs",
+    system: "http://unitsofmeasure.org",
+    code: "[lb_av]"
+  }
+}
+) {
+    id
+    resourceType
+}
+}
+
+```
+
+## Mutation Update Observation
+```
+
+mutation ObservationUpdate {
+    ObservationUpdate(id: "5dcc015778507e0ad027830d", resource: {
+  resourceType: Observation,
+  status: "final",
+  category: [
+    {
+      coding: [
+        {
+          system: "http://terminology.hl7.org/CodeSystem/observation-category",
+          code: "vital-signs",
+          display: "Vital Signs"
+        }
+      ]
+    }
+  ],
+  code: {
+    coding: [
+      {
+        system: "http://loinc.org",
+        code: "29463-7",
+        display: "Body Weight"
+      },
+      {
+        system: "http://loinc.org",
+        code: "3141-9",
+        display: "Body weight Measured"
+      },
+      {
+        system: "http://snomed.info/sct",
+        code: "27113001",
+        display: "Body weight"
+      },
+      {
+        system: "http://acme.org/devices/clinical-codes",
+        code: "body-weight",
+        display: "Body Weight"
+      }
+    ]
+  },
+  effectiveDateTime: "2019-03-28",
+  valueQuantity: {
+    value: 185,
+    unit: "lbs",
+    system: "http://unitsofmeasure.org",
+    code: "[lb_av]"
+  }
+}
+) {
+    id
+    resourceType
+    effectiveDateTime
+}
+}
+
+```
+
+## Mutation Delete Observation
+
+```
+mutation ObservationRemove {
+    ObservationRemove(id: "5dcc015778507e0ad027830d") {
+      id  
+    }
+}
+```
+
+# Practitioner
+
+## Query Practitioner (single)
+```
+query Practitioner {
+    Practitioner(_id: "5dca8d90dc0abf364025c245") {
+        id
+    }
+}
+
+```
+
+## Query Practitioner (list)
+```
+query PractitionerList {
+  PractitionerList {
+    entry {
+      resource {
+        ...on Practitioner {
+          id
+          resourceType
+          name { family }
+        }
+      }
+    }
+  }
+}
+```
+
+## Mutation Create Practitioner
+```
+
+mutation PractitionerCreate {
+  PractitionerCreate(resource: {
+  resourceType: Practitioner,
+  identifier: [
+    {
+      system: "http://www.acme.org/practitioners",
+      value: "23"
+    }
+  ],
+  active: true,
+  name: [
+    {
+      family: "Careful",
+      given: [
+        "Adam"
+      ],
+      prefix: [
+        "Dr"
+      ]
+    }
+  ],
+  address: [
+    {
+      use: "home",
+      line: [
+        "534 Erewhon St"
+      ],
+      city: "PleasantVille",
+      state: "Vic",
+      postalCode: "3999"
+    }
+  ],
+  qualification: [
+    {
+      code: {
+        coding: [
+          {
+            system: "http://terminology.hl7.org/CodeSystem/v2-0360/2.7",
+            code: "BS",
+            display: "Bachelor of Science"
+          }
+        ],
+        text: "Bachelor of Science"
+      },
+      period: {
+        start: "1995"
+      }
+    }
+  ]
+}
+  ) {
+    id
+    resourceType
+    name { family }
+  }
+}
+
+```
+
+## Mutation Update Practitioner
+```
+mutation PractitionerUpdate {
+  PractitionerUpdate(id: "5dcbc549e51df012c84ff716", resource: {
+  resourceType: Practitioner,
+  name: [
+    {
+      family: "Namesen",
+      given: [
+        "Namie"
+      ],
+      prefix: [
+        "Dr"
+      ]
+    }
+  ],
+}
+  ) {
+    id
+    resourceType
+    name { family }
+  }
+}
+
+```
+
+## Mutation Delete Practitioner
+```
+mutation PractitionerRemove {
+    PractitionerRemove(id: "5dcbc549e51df012c84ff716") {
+      id  
+    }
+}
+
 # Person
 
 ## QUERY Person
