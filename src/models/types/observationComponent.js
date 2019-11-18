@@ -1,8 +1,9 @@
-const codeableConcept = require('./codeableConcept');
 const period = require('./period');
+const mongoose = require('mongoose');
 const quantity = require('./quantity');
 const referenceRange = require('./referenceRange');
-const mongoose = require('mongoose');
+const codeableConcept = require('./codeableConcept');
+
 
 
 module.exports = {
