@@ -3,18 +3,8 @@
  * @static
  * @summary Observation resolver.
  */
-module.exports.getObservation = async function getObservation(
-	root,
-	args,
-	context = {},
-	info,
-) {
-		try {
-			const { server: { model, app }, version, req, res } = context;
-			return (await model.observations.getOne(args));
-		} catch (e) {
-			console.log('Observation error: ', e);
-		}
+module.exports.getObservation = async function (_, args, context = {}) {
+	return await context.server.model.observations.getOne(args);
 };
 
 /**
@@ -22,18 +12,9 @@ module.exports.getObservation = async function getObservation(
  * @static
  * @summary Observation list resolver.
  */
-module.exports.getObservationList = async function getObservationList(
-	root,
-	args,
-	context = {},
-	info,
-) {
-		try {
-			const { server: { model }, version, req, res } = context;
-			return (await model.observations.getAll(args));
-		} catch (e) {
-			console.log('Observation error: ', e);
-		}
+
+module.exports.getObservationList = async function (_, args, context = {}) {
+	return await context.server.model.observations.getAll(args);
 };
 
 /**
@@ -41,58 +22,31 @@ module.exports.getObservationList = async function getObservationList(
  * @static
  * @summary Observation instance resolver.
  */
-module.exports.getObservationInstance = async function getObservationInstance(
-	root,
-	args,
-	context = {},
-	info,
-) {
-		try {
-			const { server: { model }, version, req, res } = context;
-			return (await model.observations.getOne(args));
-		} catch (e) {
-			console.log('Observation error: ', e);
-		}
+
+module.exports.getObservationInstance = async function (_, args, context = {}) {
+	return await context.server.model.observations.getOne(args);
 };
+
 
 /**
  * @name exports.createObservation
  * @static
  * @summary Create Observation resolver.
  */
-module.exports.createObservation = async function createObservation(
-	root,
-	args,
-	context = {},
-	info,
-) {
-		try {
-			const { server: { model }, version, req, res } = context;
-			const observation = await model.observations.createData(args.resource);
-			return (observation)
-		} catch (e) {
-			console.log('Observation error: ', e);
-		}
+
+module.exports.createObservation = async function (_, args, context = {}) {
+	return await context.server.model.observations.createData(args.resource);
 };
+
 
 /**
  * @name exports.updateObservation
  * @static
  * @summary Update Observation resolver.
  */
-module.exports.updateObservation = async function updateObservation(
-	root,
-	args,
-	context = {},
-	info,
-) {
-		try {
-			const { server: { model }, version, req, res } = context;
-			const observation = await model.observations.updateData(args.id, args.resource);
-			return (observation)
-		} catch(e) {
-			console.log('Observation error: ', e);
-		}
+
+module.exports.updateObservation = async function (_, args, context = {}) {
+	return await context.server.model.observations.updateData(args.id, args.resource);
 };
 
 /**
@@ -100,17 +54,8 @@ module.exports.updateObservation = async function updateObservation(
  * @static
  * @summary Remove Observation resolver.
  */
-module.exports.removeObservation = async function removeObservation(
-	root,
-	args,
-	context = {},
-	info,
-) {
-		try {
-			const { server: { model }, version, req, res } = context;
-			const observation = await model.observations.removeData(args.id);
-			return (observation)
-		} catch (e) {
-			console.log('Observation error: ', e);
-		}
+
+module.exports.removeObservation = async function (_, args, context = {}) {
+	return await context.server.model.observations.removeData(args.id);
 };
+
