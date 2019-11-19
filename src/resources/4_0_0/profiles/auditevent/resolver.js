@@ -4,7 +4,7 @@
  * @summary AuditEvent resolver.
  */
 module.exports.getAuditEvent = async function (_, args, context ={}) {
-	return await context.server.model.auditEvents.getOne(args);
+	return await context.server.model.auditevents.getOne(args);
 };
 
 /**
@@ -13,7 +13,7 @@ module.exports.getAuditEvent = async function (_, args, context ={}) {
  * @summary AuditEvent list resolver.
  */
 module.exports.getAuditEventList = async function (_, args, context={}) {
-	return await context.server.model.auditEvents.getAll(args);
+	return await context.server.model.auditevents.getAll(args);
 };
 
 /**
@@ -22,7 +22,7 @@ module.exports.getAuditEventList = async function (_, args, context={}) {
  * @summary AuditEvent instance resolver.
  */
 module.exports.getAuditEventInstance = async function (_, args, context ={}) {
-	return await context.server.model.auditEvents.getOne(args);
+	return await context.server.model.auditevents.getOne(args);
 };
 
 /**
@@ -31,7 +31,7 @@ module.exports.getAuditEventInstance = async function (_, args, context ={}) {
  * @summary Create AuditEvent resolver.
  */
 module.exports.createAuditEvent = async function (_, args, context = {}) {
-	return await context.server.model.auditEvents.createData(args.resource)
+	return await context.server.model.auditevents.createData(args.resource)
 };
 
 /**
@@ -40,7 +40,7 @@ module.exports.createAuditEvent = async function (_, args, context = {}) {
  * @summary Update AuditEvent resolver.
  */
 module.exports.updateAuditEvent = async function (_, args, context = {}) {
-	return await context.server.model.auditEvents.updateData(args.id, args.resource)
+	return await context.server.model.auditevents.updateData(args.id, args.resource)
 };
 
 /**
@@ -49,5 +49,5 @@ module.exports.updateAuditEvent = async function (_, args, context = {}) {
  * @summary Remove AuditEvent resolver.
  */
 module.exports.removeAuditEvent = async function (_, args, context = {}) {
-	return await context.server.model.auditEvents.removeData(args.id)
+	return await context.server.model.auditevents.removeData(args.id)
 };
