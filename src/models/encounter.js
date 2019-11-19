@@ -1,12 +1,11 @@
-const status = require('./types/encounterStatus');
-const statusHistory = require('./types/statusHistory');
-const classHistory = require('./types/classHistory');
-const codeableConcept = require('./types/codeableConcept');
 const period = require('./types/period');
-const encounterLocationStatus = require('./types/encounterLocationStatus')
-const domainResource = require('./types/domainResource');
 const identifier = require('./types/identifier');
-
+const status = require('./types/encounterStatus');
+const classHistory = require('./types/classHistory');
+const statusHistory = require('./types/statusHistory');
+const domainResource = require('./types/domainResource');
+const codeableConcept = require('./types/codeableConcept');
+const encounterLocationStatus = require('./types/encounterLocationStatus');
 
 module.exports = mongoose => {
 	const Schema = new mongoose.Schema(
@@ -180,8 +179,7 @@ module.exports = mongoose => {
 	];
 
 
-	Schema.statics.getAll = function (args) {
-		return new Promise(async (resolve, reject) => {
+	Schema.statics.getAll = async function (args) {
 			try {
 				const {limit = 100, page = 1} = args || {};
 				const query = {limit: Math.abs(parseInt(limit, 10) || 100)};
@@ -193,7 +191,7 @@ module.exports = mongoose => {
 					{},
 					{sort: {createdAt: 'desc'}, limit: query.limit, skip: query.skip},
 				);
-				resolve({
+				return ({
 					total,
 					pageSize: limit,
 					page: currentPage + 1,
@@ -201,13 +199,11 @@ module.exports = mongoose => {
 					entry: encounters.map(resource => ({resource})),
 				});
 			} catch (e) {
-				reject(e);
+				console.log(e);
 			}
-		});
 	};
 
-	Schema.statics.getOne = function (params = {}) {
-		return new Promise(async (resolve, reject) => {
+	Schema.statics.getOne = async function (params = {}) {
 			try {
 				const encounter = await this.findOne(params || {});
 
@@ -215,15 +211,13 @@ module.exports = mongoose => {
 					throw new Error('Encounter not found');
 				}
 
-				resolve(encounter);
+				return (encounter);
 			} catch (e) {
-				reject(e);
+				console.log(e);
 			}
-		});
 	};
 
-	Schema.statics.createData = function (params = {}) {
-		return new Promise(async (resolve, reject) => {
+	Schema.statics.createData = async function (params = {}) {
 			try {
 				const permitParams = permitFields.reduce(
 					(obj, key) =>
@@ -233,15 +227,13 @@ module.exports = mongoose => {
 					{},
 				);
 				permitParams.resourceType = 'Encounter';
-				resolve(await this.create(permitParams));
+				return (await this.create(permitParams));
 			} catch (e) {
-				reject(e);
+				console.log(e);
 			}
-		});
 	};
 
-	Schema.statics.updateData = function (_id, params = {}) {
-		return new Promise(async (resolve, reject) => {
+	Schema.statics.updateData = async function (_id, params = {}) {
 			try {
 				const encounter = await this.findOne({_id});
 
@@ -255,15 +247,13 @@ module.exports = mongoose => {
 				encounter.resourceType = 'Encounter';
 				await encounter.save();
 
-				resolve(encounter);
+				return (encounter);
 			} catch (e) {
-				reject(e);
+				console.log(e);
 			}
-		});
 	};
 
-	Schema.statics.removeData = function (_id) {
-		return new Promise(async (resolve, reject) => {
+	Schema.statics.removeData = async function (_id) {
 			try {
 				const encounter = await this.findOne({_id});
 
@@ -272,11 +262,10 @@ module.exports = mongoose => {
 				}
 
 				await encounter.remove();
-				resolve(encounter);
+				return (encounter);
 			} catch (e) {
-				reject(e);
+				console.log(e);
 			}
-		});
 	};
 
 	return mongoose.model('Encounter', Schema);

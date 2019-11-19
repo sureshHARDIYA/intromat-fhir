@@ -3,20 +3,8 @@
  * @static
  * @summary AuditEvent resolver.
  */
-module.exports.getAuditEvent = function getAuditEvent(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const { server: { model, app }, version, req, res } = context;
-			resolve(await model.auditEvents.getOne(args));
-		} catch (e) {
-			reject(e);
-		}
-	});
+module.exports.getAuditEvent = async function (_, args, context ={}) {
+	return await context.server.model.auditEvents.getOne(args);
 };
 
 /**
@@ -24,20 +12,8 @@ module.exports.getAuditEvent = function getAuditEvent(
  * @static
  * @summary AuditEvent list resolver.
  */
-module.exports.getAuditEventList = function getAuditEventList(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const { server: { model }, version, req, res } = context;
-			resolve(await model.auditEvents.getAll(args));
-		} catch (e) {
-			reject(e);
-		}
-	});
+module.exports.getAuditEventList = async function (_, args, context={}) {
+	return await context.server.model.auditEvents.getAll(args);
 };
 
 /**
@@ -45,20 +21,8 @@ module.exports.getAuditEventList = function getAuditEventList(
  * @static
  * @summary AuditEvent instance resolver.
  */
-module.exports.getAuditEventInstance = function getAuditEventInstance(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const { server: { model }, version, req, res } = context;
-			resolve(await model.auditEvents.getOne(args));
-		} catch (e) {
-			reject(e);
-		}
-	});
+module.exports.getAuditEventInstance = async function (_, args, context ={}) {
+	return await context.server.model.auditEvents.getOne(args);
 };
 
 /**
@@ -66,21 +30,8 @@ module.exports.getAuditEventInstance = function getAuditEventInstance(
  * @static
  * @summary Create AuditEvent resolver.
  */
-module.exports.createAuditEvent = function createAuditEvent(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const { server: { model }, version, req, res } = context;
-			const auditEvent = await model.auditEvents.createData(args.resource);
-			resolve(auditEvent)
-		} catch (e) {
-			reject(e);
-		}
-	});
+module.exports.createAuditEvent = async function (_, args, context = {}) {
+	return await context.server.model.auditEvents.createData(args.resource)
 };
 
 /**
@@ -88,21 +39,8 @@ module.exports.createAuditEvent = function createAuditEvent(
  * @static
  * @summary Update AuditEvent resolver.
  */
-module.exports.updateAuditEvent = function updateAuditEvent(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const { server: { model }, version, req, res } = context;
-			const auditEvent = await model.auditEvents.updateData(args.id, args.resource);
-			resolve(auditEvent)
-		} catch(e) {
-			reject(e);
-		}
-	});
+module.exports.updateAuditEvent = async function (_, args, context = {}) {
+	return await context.server.model.auditEvents.updateData(args.id, args.resource)
 };
 
 /**
@@ -110,19 +48,6 @@ module.exports.updateAuditEvent = function updateAuditEvent(
  * @static
  * @summary Remove AuditEvent resolver.
  */
-module.exports.removeAuditEvent = function removeAuditEvent(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const { server: { model }, version, req, res } = context;
-			const auditEvent = await model.auditEvents.removeData(args.id);
-			resolve(auditEvent)
-		} catch (e) {
-			reject(e);
-		}
-	});
+module.exports.removeAuditEvent = async function (_, args, context = {}) {
+	return await context.server.model.auditEvents.removeData(args.id)
 };

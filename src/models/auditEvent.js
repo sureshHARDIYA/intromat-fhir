@@ -1,10 +1,10 @@
+const period = require('./types/period');
+const action = require('./types/auditEventAction');
+const outcome = require('./types/auditEventOutcome');
 const domainResource = require('./types/domainResource');
 const codeableConcept = require('./types/codeableConcept');
-const action = require('./types/auditEventAction');
-const period = require('./types/period');
-const outcome = require('./types/auditEventOutcome');
+const auditEventSourceType = require('./types/auditEventSourceType');
 const auditEventAgentNetworkType = require('./types/auditEventAgentNetworkType');
-const auditEventSourceType = require('./types/auditEventSourceType')
 
 module.exports = mongoose => {
 	const Schema = new mongoose.Schema(
@@ -137,10 +137,9 @@ module.exports = mongoose => {
 		'agent',
 		'source',
 		'entity',
-	]
+	];
 
-	Schema.statics.getAll = function(args) {
-		return new Promise(async (resolve, reject) => {
+	Schema.statics.getAll = async function(args) {
 			try {
 				const { limit = 100, page = 1 } = args || {};
 				const query = { limit: Math.abs(parseInt(limit, 10) || 100) };
@@ -153,7 +152,7 @@ module.exports = mongoose => {
 					{ sort: { createdAt: 'desc' }, limit: query.limit, skip: query.skip },
 				);
 
-				resolve({
+				return ({
 					total,
 					pageSize: limit,
 					page: currentPage + 1,
@@ -161,13 +160,11 @@ module.exports = mongoose => {
 					entry: auditEvents.map(resource => ({ resource })),
 				});
 			} catch (e) {
-				reject(e);
+				console.log(e);
 			}
-		});
 	};
 
-	Schema.statics.getOne = function(params = {}) {
-		return new Promise(async (resolve, reject) => {
+	Schema.statics.getOne = async function(params = {}) {
 			try {
 				const auditEvent = await this.findOne(params || {});
 
@@ -175,15 +172,13 @@ module.exports = mongoose => {
 					throw new Error('AuditEvent not found');
 				}
 
-				resolve(auditEvent);
+				return (auditEvent);
 			} catch (e) {
-				reject(e);
+				console.log(e);
 			}
-		});
 	};
 
-	Schema.statics.createData = function(params = {}) {
-		return new Promise(async (resolve, reject) => {
+	Schema.statics.createData = async function(params = {}) {
 			try {
 				const permitParams = permitFields.reduce(
 					(obj, key) =>
@@ -193,15 +188,13 @@ module.exports = mongoose => {
 					{},
 				);
 				permitParams.resourceType = 'AuditEvent';
-				resolve(await this.create(permitParams));
+				return (await this.create(permitParams));
 			} catch (e) {
-				reject(e);
+				console.log(e);
 			}
-		});
 	};
 
-	Schema.statics.updateData = function(_id, params = {}) {
-		return new Promise(async (resolve, reject) => {
+	Schema.statics.updateData = async function(_id, params = {}) {
 			try {
 				const auditEvent = await this.findOne({ _id });
 
@@ -215,15 +208,13 @@ module.exports = mongoose => {
 				auditEvent.resourceType = 'AuditEvent';
 				await auditEvent.save();
 
-				resolve(auditEvent);
+				return (auditEvent);
 			} catch (e) {
-				reject(e);
+				console.log(e);
 			}
-		});
 	};
 
-	Schema.statics.removeData = function(_id) {
-		return new Promise(async (resolve, reject) => {
+	Schema.statics.removeData = async function(_id) {
 			try {
 				const auditEvent = await this.findOne({ _id });
 
@@ -232,11 +223,10 @@ module.exports = mongoose => {
 				}
 
 				await auditEvent.remove();
-				resolve(auditEvent);
+				return (auditEvent);
 			} catch (e) {
-				reject(e);
+				console.log(e);
 			}
-		});
 	};
 
 	return mongoose.model('AuditEvent', Schema);

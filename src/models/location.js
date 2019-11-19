@@ -1,10 +1,10 @@
+const coding = require('./types/coding');
 const address = require('./types/address');
 const identifier = require('./types/identifier');
-const contactPoint = require('./types/contactPoint');
-const codeableConcept = require('./types/codeableConcept');
-const domainResource = require('./types/domainResource');
 const daysOfWeek = require('./types/daysOfWeek');
-const coding = require('./types/coding');
+const contactPoint = require('./types/contactPoint');
+const domainResource = require('./types/domainResource');
+const codeableConcept = require('./types/codeableConcept');
 
 module.exports = mongoose => {
 	const Schema = new mongoose.Schema(
@@ -36,17 +36,17 @@ module.exports = mongoose => {
 				latitude: mongoose.Decimal128,
 				altitude: mongoose.Decimal128,
 			},
-			managingOrganization:{
+			managingOrganization: {
 				type: mongoose.Schema.ObjectId,
 				ref: 'Organization',
 			},
-			partOf:{
+			partOf: {
 				type: mongoose.Schema.ObjectId,
 				ref: 'Location',
 			},
 			hoursOfOperation: [
 				{
-					daysOfWeek:[daysOfWeek],
+					daysOfWeek: [daysOfWeek],
 					allday: Boolean,
 					openingTime: String,
 					closingTime: String,
@@ -59,7 +59,7 @@ module.exports = mongoose => {
 			}],
 			}),
 			{
-				timestamps:true,
+				timestamps: true,
 			}
 
 	);
@@ -84,8 +84,7 @@ module.exports = mongoose => {
 		'endpoint',
 	];
 
-	Schema.statics.getAll = function(args) {
-		return new Promise(async (resolve, reject) => {
+	Schema.statics.getAll = async function(args) {
 			try {
 				const { limit = 100, page = 1 } = args || {};
 				const query = { limit: Math.abs(parseInt(limit, 10) || 100) };
@@ -97,7 +96,7 @@ module.exports = mongoose => {
 					{},
 					{ sort: { createdAt: 'desc' }, limit: query.limit, skip: query.skip },
 				);
-				resolve({
+				return ({
 					total,
 					pageSize: limit,
 					page: currentPage + 1,
@@ -105,13 +104,11 @@ module.exports = mongoose => {
 					entry: location.map(resource => ({ resource })),
 				});
 			} catch (e) {
-				reject(e);
+				console.log(e);
 			}
-		});
 	};
 
-	Schema.statics.getOne = function(params = {}) {
-		return new Promise(async (resolve, reject) => {
+	Schema.statics.getOne = async function(params = {}) {
 			try {
 				const location = await this.findOne(params || {});
 
@@ -119,15 +116,13 @@ module.exports = mongoose => {
 					throw new Error('Location not found');
 				}
 
-				resolve(location);
+				return (location);
 			} catch (e) {
-				reject(e);
+				console.log(e);
 			}
-		});
 	};
 
-	Schema.statics.createData = function(params = {}) {
-		return new Promise(async (resolve, reject) => {
+	Schema.statics.createData = async function(params = {}) {
 			try {
 				const permitParams = permitFields.reduce(
 					(obj, key) =>
@@ -137,15 +132,13 @@ module.exports = mongoose => {
 					{},
 				);
 				permitParams.resourceType = 'Location';
-				resolve(await this.create(permitParams));
+				return (await this.create(permitParams));
 			} catch (e) {
-				reject(e);
+				console.log(e);
 			}
-		});
 	};
 
-	Schema.statics.updateData = function(_id, params = {}) {
-		return new Promise(async (resolve, reject) => {
+	Schema.statics.updateData = async function(_id, params = {}) {
 			try {
 				const location = await this.findOne({ _id });
 
@@ -159,15 +152,13 @@ module.exports = mongoose => {
 				location.resourceType = 'Location';
 				await location.save();
 
-				resolve(location);
+				return (location);
 			} catch (e) {
-				reject(e);
+				console.log(e);
 			}
-		});
 	};
 
-	Schema.statics.removeData = function(_id) {
-		return new Promise(async (resolve, reject) => {
+	Schema.statics.removeData = async function(_id) {
 			try {
 				const location = await this.findOne({ _id });
 
@@ -176,11 +167,10 @@ module.exports = mongoose => {
 				}
 
 				await location.remove();
-				resolve(location);
+				return (location);
 			} catch (e) {
-				reject(e);
+				console.log(e);
 			}
-		});
 	};
 
 	return mongoose.model('Location', Schema);
