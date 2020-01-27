@@ -13,10 +13,6 @@ module.exports = mongoose => {
 					enum: ['Media'],
 				},
 				identifier: [identifier('Media')],
-				partOf: {
-					type: mongoose.Schema.ObjectId,
-					ref: 'Any'
-				},
 				serviceRequest: [
 					{
 						type: mongoose.Schema.ObjectId,
@@ -93,13 +89,9 @@ module.exports = mongoose => {
 					type: mongoose.Schema.ObjectId,
 					ref: 'DeviceMetric'
 				},
-				/*
-				How do we define these?
-				FHIR standard requires them to be positiveInt
-				height: Number,
+				/*height: Number,
 				width: Number,
-				frames: Number,
-				*/
+				frames: Number,*/
 				duration: Number,
 				content: attachment,
 				note: {
