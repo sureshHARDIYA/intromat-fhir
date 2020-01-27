@@ -13,10 +13,6 @@ module.exports = mongoose => {
 					enum: ['Media'],
 				},
 				identifier: [identifier('Media')],
-				partOf: {
-					type: mongoose.Schema.ObjectId,
-					ref: 'Any'
-				},
 				serviceRequest: [
 					{
 						type: mongoose.Schema.ObjectId,
@@ -93,13 +89,9 @@ module.exports = mongoose => {
 					type: mongoose.Schema.ObjectId,
 					ref: 'DeviceMetric'
 				},
-				/*
-				How do we define these?
-				FHIR standard requires them to be positiveInt
-				height: Number,
+				/*height: Number,
 				width: Number,
-				frames: Number,
-				*/
+				frames: Number,*/
 				duration: Number,
 				content: attachment,
 				note: {
@@ -167,7 +159,7 @@ module.exports = mongoose => {
 	);
 
 	const permitFields = [
-		'identifier', 'basedOn', 'serviceRequest', 'carePlan', 'partOf', 'status', 'status',
+		'identifier', 'basedOn', 'serviceRequest', 'carePlan', 'status', 'status',
 		'type', 'modality', 'view', 'subject', 'patient', 'practitioner', 'practitionerRole',
 		'group', 'device', 'specimen', 'location', 'encounter', 'created', 'createdDateTime',
 		'createdPeriod', 'issued', 'operator', 'organization', 'careTeam', 'relatedPerson',
