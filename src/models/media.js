@@ -159,7 +159,7 @@ module.exports = mongoose => {
 	);
 
 	const permitFields = [
-		'identifier', 'basedOn', 'serviceRequest', 'carePlan', 'partOf', 'status', 'status',
+		'identifier', 'basedOn', 'serviceRequest', 'carePlan', 'status', 'status',
 		'type', 'modality', 'view', 'subject', 'patient', 'practitioner', 'practitionerRole',
 		'group', 'device', 'specimen', 'location', 'encounter', 'created', 'createdDateTime',
 		'createdPeriod', 'issued', 'operator', 'organization', 'careTeam', 'relatedPerson',
