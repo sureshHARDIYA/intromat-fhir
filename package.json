@@ -22,7 +22,7 @@
     "@asymmetrik/fhir-gql-schema-utils": "^1.0.1",
     "@asymmetrik/sof-graphql-invariant": "^1.0.2",
     "@asymmetrik/sof-strategy": "^1.0.2",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
     "compression": "^1.7.2",
