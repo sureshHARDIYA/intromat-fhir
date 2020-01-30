@@ -4,8 +4,15 @@
  * @summary Person resolver.
  */
 module.exports.getPerson = function getPerson(root, args, context = {}, info) {
-	let { server, version, req, res } = context;
-	return {};
+
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model, app }, version, req, res } = context;
+			resolve(await model.people.getOne(args));
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -19,8 +26,14 @@ module.exports.getPersonList = function getPersonList(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			resolve(await model.people.getAll(args));
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -34,8 +47,14 @@ module.exports.getPersonInstance = function getPersonInstance(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			resolve(await model.people.getOne(args));
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -49,8 +68,15 @@ module.exports.createPerson = function createPerson(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			const person = await model.people.createData(args.resource);
+			resolve(person)
+		} catch (e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -64,8 +90,15 @@ module.exports.updatePerson = function updatePerson(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			const person = await model.people.updateData(args.id, args.resource);
+			resolve(person)
+		} catch(e) {
+			reject(e);
+		}
+	});
 };
 
 /**
@@ -79,6 +112,13 @@ module.exports.removePerson = function removePerson(
 	context = {},
 	info,
 ) {
-	let { server, version, req, res } = context;
-	return {};
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { server: { model }, version, req, res } = context;
+			const person = await model.people.removeData(args.id);
+			resolve(person)
+		} catch (e) {
+			reject(e);
+		}
+	});
 };

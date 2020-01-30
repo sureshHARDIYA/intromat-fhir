@@ -3,14 +3,8 @@
  * @static
  * @summary Observation resolver.
  */
-module.exports.getObservation = function getObservation(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.getObservation = async function (_, args, context = {}) {
+	return await context.server.model.observations.getOne(args);
 };
 
 /**
@@ -18,14 +12,9 @@ module.exports.getObservation = function getObservation(
  * @static
  * @summary Observation list resolver.
  */
-module.exports.getObservationList = function getObservationList(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+
+module.exports.getObservationList = async function (_, args, context = {}) {
+	return await context.server.model.observations.getAll(args);
 };
 
 /**
@@ -33,44 +22,31 @@ module.exports.getObservationList = function getObservationList(
  * @static
  * @summary Observation instance resolver.
  */
-module.exports.getObservationInstance = function getObservationInstance(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+
+module.exports.getObservationInstance = async function (_, args, context = {}) {
+	return await context.server.model.observations.getOne(args);
 };
+
 
 /**
  * @name exports.createObservation
  * @static
  * @summary Create Observation resolver.
  */
-module.exports.createObservation = function createObservation(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+
+module.exports.createObservation = async function (_, args, context = {}) {
+	return await context.server.model.observations.createData(args.resource);
 };
+
 
 /**
  * @name exports.updateObservation
  * @static
  * @summary Update Observation resolver.
  */
-module.exports.updateObservation = function updateObservation(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+
+module.exports.updateObservation = async function (_, args, context = {}) {
+	return await context.server.model.observations.updateData(args.id, args.resource);
 };
 
 /**
@@ -78,12 +54,8 @@ module.exports.updateObservation = function updateObservation(
  * @static
  * @summary Remove Observation resolver.
  */
-module.exports.removeObservation = function removeObservation(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+
+module.exports.removeObservation = async function (_, args, context = {}) {
+	return await context.server.model.observations.removeData(args.id);
 };
+

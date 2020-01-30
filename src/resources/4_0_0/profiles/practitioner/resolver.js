@@ -3,29 +3,20 @@
  * @static
  * @summary Practitioner resolver.
  */
-module.exports.getPractitioner = function getPractitioner(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+
+module.exports.getPractitioner = async function (_, args, context = {}) {
+	return await context.server.model.practitioners.getOne(args);
 };
+
 
 /**
  * @name exports.getPractitionerList
  * @static
  * @summary Practitioner list resolver.
  */
-module.exports.getPractitionerList = function getPractitionerList(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+
+module.exports.getPractitionerList = async function (_, args, context = {}) {
+	return await context.server.model.practitioners.getAll(args);
 };
 
 /**
@@ -33,44 +24,30 @@ module.exports.getPractitionerList = function getPractitionerList(
  * @static
  * @summary Practitioner instance resolver.
  */
-module.exports.getPractitionerInstance = function getPractitionerInstance(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+
+module.exports.getPractitionerInstance = async function (_, args, context = {}) {
+	return await context.server.model.practitioners.getOne(args);
 };
+
 
 /**
  * @name exports.createPractitioner
  * @static
  * @summary Create Practitioner resolver.
  */
-module.exports.createPractitioner = function createPractitioner(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.createPractitioner = async function (_, args, context = {}) {
+	return await context.server.model.practitioners.createData(args.resource);
 };
+
 
 /**
  * @name exports.updatePractitioner
  * @static
  * @summary Update Practitioner resolver.
  */
-module.exports.updatePractitioner = function updatePractitioner(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+
+module.exports.updatePractitioner = async function (_, args, context = {}) {
+	return await context.server.model.practitioners.updateData(args.id, args.resource);
 };
 
 /**
@@ -78,12 +55,6 @@ module.exports.updatePractitioner = function updatePractitioner(
  * @static
  * @summary Remove Practitioner resolver.
  */
-module.exports.removePractitioner = function removePractitioner(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.removePractitioner = async function (_, args, context = {}) {
+	return await context.server.model.practitioners.removeData(args.id);
 };

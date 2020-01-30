@@ -3,9 +3,9 @@
  * @static
  * @summary Media resolver.
  */
-module.exports.getMedia = function getMedia(root, args, context = {}, info) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.getMedia = async function getMedia(root, args, context = {}) {
+		const { server: { model }, } = context;
+		return await model.media.getOne(args);
 };
 
 /**
@@ -13,14 +13,9 @@ module.exports.getMedia = function getMedia(root, args, context = {}, info) {
  * @static
  * @summary Media list resolver.
  */
-module.exports.getMediaList = function getMediaList(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.getMediaList = async function getMediaList(root, args, context = {}) {
+		const { server: { model },} = context;
+		return await model.media.getAll(args);
 };
 
 /**
@@ -28,14 +23,9 @@ module.exports.getMediaList = function getMediaList(
  * @static
  * @summary Media instance resolver.
  */
-module.exports.getMediaInstance = function getMediaInstance(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.getMediaInstance = async function getMediaInstance(root, args, context = {}) {
+			const { server:  { model },} = context;
+			return await model.media.getOne(args);
 };
 
 /**
@@ -43,14 +33,9 @@ module.exports.getMediaInstance = function getMediaInstance(
  * @static
  * @summary Create Media resolver.
  */
-module.exports.createMedia = function createMedia(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.createMedia = async function createMedia(root, args, context = {}) {
+			const { server: { model }, } = context;
+			return await model.media.createData(args.resource);
 };
 
 /**
@@ -58,14 +43,9 @@ module.exports.createMedia = function createMedia(
  * @static
  * @summary Update Media resolver.
  */
-module.exports.updateMedia = function updateMedia(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.updateMedia = async function updateMedia(root, args, context = {}) {
+		const { server: { model }, } = context;
+		return await model.media.updateData(args.id, args.resource);
 };
 
 /**
@@ -73,12 +53,7 @@ module.exports.updateMedia = function updateMedia(
  * @static
  * @summary Remove Media resolver.
  */
-module.exports.removeMedia = function removeMedia(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.removeMedia = async function removeMedia(root, args, context = {}) {
+			const { server: { model }, } = context;
+			return await model.media.removeData(args.id);
 };
