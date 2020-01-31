@@ -29,4 +29,11 @@ Interoperability is accepted as a fundamental necessity for the successful reali
 - [muzima](https://www.muzima.org/)
 
 # Become supporter
-We are a team of dedicated developers/researchers willing to make healthcare system better. We are always looking for ways where we can collaborate and help. Email <a href="mailto:skmu@hvl.no"><skmu@hvl.no> </a> for further details. 
+We are a team of dedicated developers/researchers willing to make healthcare system better. We are always looking for ways where we can collaborate and help. Email <a href="mailto:skmu@hvl.no"><skmu@hvl.no> </a> for further details.
+
+# Cite this
+> Mukhiya, S. K., Rabbi, F., I Pun, V. K., Rutle, A., & Lamo, Y. (2019). A GraphQL approach to Healthcare Information Exchange with HL7 FHIR. Procedia Computer Science, 160, 338-345.   10.1016/j.procs.2019.11.082
+
+> https://www.researchgate.net/publication/337431422_A_GraphQL_approach_to_Healthcare_Information_Exchange_with_HL7_FHIR
+> https://www.sciencedirect.com/science/article/pii/S187705091931782X
+> https://hvlopen.brage.unit.no/hvlopen-xmlui/handle/11250/2632185
