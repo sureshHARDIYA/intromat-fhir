@@ -3,14 +3,8 @@
  * @static
  * @summary AuditEvent resolver.
  */
-module.exports.getAuditEvent = function getAuditEvent(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.getAuditEvent = async function (_, args, context ={}) {
+	return await context.server.model.auditevents.getOne(args);
 };
 
 /**
@@ -18,14 +12,8 @@ module.exports.getAuditEvent = function getAuditEvent(
  * @static
  * @summary AuditEvent list resolver.
  */
-module.exports.getAuditEventList = function getAuditEventList(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.getAuditEventList = async function (_, args, context={}) {
+	return await context.server.model.auditevents.getAll(args);
 };
 
 /**
@@ -33,14 +21,8 @@ module.exports.getAuditEventList = function getAuditEventList(
  * @static
  * @summary AuditEvent instance resolver.
  */
-module.exports.getAuditEventInstance = function getAuditEventInstance(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.getAuditEventInstance = async function (_, args, context ={}) {
+	return await context.server.model.auditevents.getOne(args);
 };
 
 /**
@@ -48,14 +30,8 @@ module.exports.getAuditEventInstance = function getAuditEventInstance(
  * @static
  * @summary Create AuditEvent resolver.
  */
-module.exports.createAuditEvent = function createAuditEvent(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.createAuditEvent = async function (_, args, context = {}) {
+	return await context.server.model.auditevents.createData(args.resource)
 };
 
 /**
@@ -63,14 +39,8 @@ module.exports.createAuditEvent = function createAuditEvent(
  * @static
  * @summary Update AuditEvent resolver.
  */
-module.exports.updateAuditEvent = function updateAuditEvent(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.updateAuditEvent = async function (_, args, context = {}) {
+	return await context.server.model.auditevents.updateData(args.id, args.resource)
 };
 
 /**
@@ -78,12 +48,6 @@ module.exports.updateAuditEvent = function updateAuditEvent(
  * @static
  * @summary Remove AuditEvent resolver.
  */
-module.exports.removeAuditEvent = function removeAuditEvent(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.removeAuditEvent = async function (_, args, context = {}) {
+	return await context.server.model.auditevents.removeData(args.id)
 };

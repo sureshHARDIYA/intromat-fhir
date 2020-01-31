@@ -3,14 +3,9 @@
  * @static
  * @summary Encounter resolver.
  */
-module.exports.getEncounter = function getEncounter(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+
+module.exports.getEncounter = async function (_, args, context ={}) {
+	return await context.server.model.encounters.getOne(args);
 };
 
 /**
@@ -18,14 +13,8 @@ module.exports.getEncounter = function getEncounter(
  * @static
  * @summary Encounter list resolver.
  */
-module.exports.getEncounterList = function getEncounterList(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.getEncounterList = async function (_, args, context={}) {
+	return await context.server.model.encounters.getAll(args);
 };
 
 /**
@@ -33,14 +22,8 @@ module.exports.getEncounterList = function getEncounterList(
  * @static
  * @summary Encounter instance resolver.
  */
-module.exports.getEncounterInstance = function getEncounterInstance(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.getEncounterInstance = async function (_, args, context ={}) {
+	return await context.server.model.encounters.getOne(args);
 };
 
 /**
@@ -48,14 +31,8 @@ module.exports.getEncounterInstance = function getEncounterInstance(
  * @static
  * @summary Create Encounter resolver.
  */
-module.exports.createEncounter = function createEncounter(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.createEncounter = async function (_, args, context = {}) {
+	return await context.server.model.encounters.createData(args.resource)
 };
 
 /**
@@ -63,14 +40,8 @@ module.exports.createEncounter = function createEncounter(
  * @static
  * @summary Update Encounter resolver.
  */
-module.exports.updateEncounter = function updateEncounter(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.updateEncounter = async function (_, args, context = {}) {
+	return await context.server.model.encounters.updateData(args.id, args.resource)
 };
 
 /**
@@ -78,12 +49,6 @@ module.exports.updateEncounter = function updateEncounter(
  * @static
  * @summary Remove Encounter resolver.
  */
-module.exports.removeEncounter = function removeEncounter(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.removeEncounter = async function (_, args, context = {}) {
+	return await context.server.model.encounters.removeData(args.id)
 };

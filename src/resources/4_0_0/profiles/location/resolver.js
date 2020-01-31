@@ -3,14 +3,8 @@
  * @static
  * @summary Location resolver.
  */
-module.exports.getLocation = function getLocation(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.getLocation = async function (_, args, context ={}) {
+	return await context.server.model.locations.getOne(args);
 };
 
 /**
@@ -18,14 +12,8 @@ module.exports.getLocation = function getLocation(
  * @static
  * @summary Location list resolver.
  */
-module.exports.getLocationList = function getLocationList(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.getLocationList = async function (_, args, context={}) {
+	return await context.server.model.locations.getAll(args);
 };
 
 /**
@@ -33,14 +21,8 @@ module.exports.getLocationList = function getLocationList(
  * @static
  * @summary Location instance resolver.
  */
-module.exports.getLocationInstance = function getLocationInstance(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.getLocationInstance = async function (_, args, context ={}) {
+	return await context.server.model.locations.getOne(args);
 };
 
 /**
@@ -48,14 +30,8 @@ module.exports.getLocationInstance = function getLocationInstance(
  * @static
  * @summary Create Location resolver.
  */
-module.exports.createLocation = function createLocation(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.createLocation = async function (_, args, context = {}) {
+	return await context.server.model.locations.createData(args.resource)
 };
 
 /**
@@ -63,14 +39,8 @@ module.exports.createLocation = function createLocation(
  * @static
  * @summary Update Location resolver.
  */
-module.exports.updateLocation = function updateLocation(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.updateLocation = async function (_, args, context = {}) {
+	return await context.server.model.locations.updateData(args.id, args.resource)
 };
 
 /**
@@ -78,12 +48,6 @@ module.exports.updateLocation = function updateLocation(
  * @static
  * @summary Remove Location resolver.
  */
-module.exports.removeLocation = function removeLocation(
-	root,
-	args,
-	context = {},
-	info,
-) {
-	let { server, version, req, res } = context;
-	return {};
+module.exports.removeLocation = async function (_, args, context = {}) {
+	return await context.server.model.locations.removeData(args.id)
 };
