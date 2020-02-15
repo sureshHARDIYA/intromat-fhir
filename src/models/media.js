@@ -121,14 +121,14 @@ module.exports = mongoose => {
 			}
 		));
 
-	Schema.virtual('basedOn').get( function() {
-			Object.assign(
-				[],
-				this.serviceRequest,
-				this.carePlan
-			);
-		}
-	);
+	// Schema.virtual('basedOn').get( function() {
+	// 		Object.assign(
+	// 			[],
+	// 			this.serviceRequest,
+	// 			this.carePlan
+	// 		);
+	// 	}
+	// );
 
 	Schema.virtual('subject').get( function() {
 			Object.assign(
@@ -159,7 +159,7 @@ module.exports = mongoose => {
 	);
 
 	const permitFields = [
-		'identifier', 'basedOn', 'serviceRequest', 'carePlan', 'status', 'status',
+		'identifier', 'serviceRequest', 'carePlan', 'status', 'status',
 		'type', 'modality', 'view', 'subject', 'patient', 'practitioner', 'practitionerRole',
 		'group', 'device', 'specimen', 'location', 'encounter', 'created', 'createdDateTime',
 		'createdPeriod', 'issued', 'operator', 'organization', 'careTeam', 'relatedPerson',
