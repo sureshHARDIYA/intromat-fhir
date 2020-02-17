@@ -57,10 +57,10 @@ module.exports = mongoose => {
 					},
 				},
 			],
-			appointment: [{
-				type: 'ObjectID',
-				ref: 'Appointment',
-			}],
+			// appointment: [{
+			// 	type: 'ObjectID',
+			// 	ref: 'Appointment',
+			// }],
 			period: period,
 			length: String,
 			reasonCode: [codeableConcept],

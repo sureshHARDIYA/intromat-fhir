@@ -250,7 +250,6 @@ module.exports = mongoose => {
 
 	const permitFields = [
 		'identifier',
-		'basedOn',
 		'carePlan',
 		'deviceRequest',
 		'immunizationRecommendation',
@@ -302,29 +301,29 @@ module.exports = mongoose => {
 
 	Schema.set('toJSON', {virtuals: true});
 
-	Schema.virtual('basedOn').get(function () {
-		return Object.assign(
-			[],
-			this.carePlan,
-			this.deviceRequest,
-			this.immunizationRecommendation,
-			this.medicationRequest,
-			this.nutritionOrder,
-			this.serviceRequest
-		);
-	});
+	// Schema.virtual('basedOn').get(function () {
+	// 	return Object.assign(
+	// 		[],
+	// 		this.carePlan,
+	// 		this.deviceRequest,
+	// 		this.immunizationRecommendation,
+	// 		this.medicationRequest,
+	// 		this.nutritionOrder,
+	// 		this.serviceRequest
+	// 	);
+	// });
 
-	Schema.virtual('partOf').get(function () {
-		return Object.assign(
-			[],
-			this.medicationAdministration,
-			this.medicationDispense,
-			this.medicationStatement,
-			this.procedure,
-			this.immunization,
-			this.imagingStudy
-		);
-	});
+	// Schema.virtual('partOf').get(function () {
+	// 	return Object.assign(
+	// 		[],
+	// 		this.medicationAdministration,
+	// 		this.medicationDispense,
+	// 		this.medicationStatement,
+	// 		this.procedure,
+	// 		this.immunization,
+	// 		this.imagingStudy
+	// 	);
+	// });
 
 	Schema.virtual('subject').get(function () {
 		return Object.assign(
