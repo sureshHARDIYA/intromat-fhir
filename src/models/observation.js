@@ -399,7 +399,7 @@ module.exports = mongoose => {
 
 	Schema.statics.getOne = async function(params = {}) {
 			try {
-				const observation = await this.findOne(params || {});
+				const observation = await this.findOne(params || {}).populate('subject');
 
 				if (!observation) {
 					throw new Error('Observation not found');
