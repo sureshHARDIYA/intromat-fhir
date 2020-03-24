@@ -78,6 +78,8 @@ module.exports = mongoose => {
 		}),
 		{
 			timestamps: true,
+			toJSON: { getters: true, virtuals: true },
+			toObject: { getters: true, virtuals: true }
 		},
 	);
 

@@ -58,4 +58,3 @@ module.exports.updateObservation = async function (_, args, context = {}) {
 module.exports.removeObservation = async function (_, args, context = {}) {
 	return await context.server.model.observations.removeData(args.id);
 };
-

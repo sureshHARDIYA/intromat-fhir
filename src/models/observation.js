@@ -6,6 +6,7 @@ const referenceRange = require('./types/referenceRange');
 const domainResource = require('./types/domainResource');
 const codeableConcept = require('./types/codeableConcept');
 const observationComponent = require('./types/observationComponent');
+const has = require('lodash/has');
 
 module.exports = mongoose => {
 	const Schema = new mongoose.Schema(
@@ -245,6 +246,8 @@ module.exports = mongoose => {
 		}),
 		{
 			timestamps: true,
+			toJSON: { getters: true, virtuals: true },
+			toObject: { getters: true, virtuals: true }
 		},
 	);
 
@@ -418,6 +421,15 @@ module.exports = mongoose => {
 					{},
 				);
 				permitParams.resourceType = 'Observation';
+
+				if (has(permitParams, 'subject')) {
+					permitParams.patient = permitParams.subject;
+				}
+
+				if (has(permitParams, 'subject')) {
+					permitParams.patient = permitParams.subject;
+				}
+
 				return (await this.create(permitParams));
 			} catch (e) {
 				console.log('Observation error: ', e);
