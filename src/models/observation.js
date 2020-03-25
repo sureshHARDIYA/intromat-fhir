@@ -6,7 +6,7 @@ const referenceRange = require('./types/referenceRange');
 const domainResource = require('./types/domainResource');
 const codeableConcept = require('./types/codeableConcept');
 const observationComponent = require('./types/observationComponent');
-const has = require('lodash/has');
+// const has = require('lodash/has');
 
 module.exports = mongoose => {
 	const Schema = new mongoose.Schema(
@@ -399,7 +399,7 @@ module.exports = mongoose => {
 
 	Schema.statics.getOne = async function(params = {}) {
 			try {
-				const observation = await this.findOne(params || {}).populate('subject');
+				const observation = await this.findOne(params || {}).populate('patient').populate('location');
 
 				if (!observation) {
 					throw new Error('Observation not found');
@@ -422,13 +422,13 @@ module.exports = mongoose => {
 				);
 				permitParams.resourceType = 'Observation';
 
-				if (has(permitParams, 'subject')) {
-					permitParams.patient = permitParams.subject;
-				}
-
-				if (has(permitParams, 'subject')) {
-					permitParams.patient = permitParams.subject;
-				}
+				// if (has(permitParams, 'subject')) {
+				// 	permitParams.patient = permitParams.subject;
+				// }
+				//
+				// if (has(permitParams, 'subject')) {
+				// 	permitParams.patient = permitParams.subject;
+				// }
 
 				return (await this.create(permitParams));
 			} catch (e) {

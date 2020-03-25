@@ -117,6 +117,15 @@ module.exports = new GraphQLInputObjectType({
 			description:
 				"Describes what was observed. Sometimes this is called the observation 'name'.",
 		},
+		patient: {
+			type: GraphQLString,
+		},
+		location: {
+			type: GraphQLString,
+		},
+		group: {
+			type: GraphQLString,
+		},
 		subject: {
 			type: GraphQLString,
 			description:
