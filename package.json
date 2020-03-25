@@ -36,6 +36,7 @@
     "graphql": "^14.0.2",
     "graphql-outfields": "^0.9.1",
     "helmet": "^3.12.1",
+    "lodash": "4.17.15",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.21",
     "mongoose": "^5.5.6",

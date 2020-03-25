@@ -245,6 +245,8 @@ module.exports = mongoose => {
 		}),
 		{
 			timestamps: true,
+			toJSON: { getters: true, virtuals: true },
+			toObject: { getters: true, virtuals: true }
 		},
 	);
 
@@ -268,8 +270,9 @@ module.exports = mongoose => {
 		'code',
 		'subject',
 		'patient',
-		'group',
-		'device',
+		// Ignore group, device due to the model is not ready
+		// 'group',
+		// 'device',
 		'location',
 		'focus',
 		'encounter',
@@ -326,13 +329,7 @@ module.exports = mongoose => {
 	// });
 
 	Schema.virtual('subject').get(function () {
-		return Object.assign(
-			[],
-			this.patient,
-			this.group,
-			this.device,
-			this.location,
-		);
+		return this.patient || this.location;
 	});
 
 	Schema.virtual('performer').get(function () {
@@ -396,7 +393,7 @@ module.exports = mongoose => {
 
 	Schema.statics.getOne = async function(params = {}) {
 			try {
-				const observation = await this.findOne(params || {});
+				const observation = await this.findOne(params || {}).populate('patient').populate('location');
 
 				if (!observation) {
 					throw new Error('Observation not found');
@@ -417,7 +414,9 @@ module.exports = mongoose => {
 							: Object.assign(obj, { [key]: params[key] }),
 					{},
 				);
+
 				permitParams.resourceType = 'Observation';
+
 				return (await this.create(permitParams));
 			} catch (e) {
 				console.log('Observation error: ', e);

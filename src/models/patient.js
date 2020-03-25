@@ -1,8 +1,8 @@
 const gender = require('./types/gender');
 const contact = require('./types/contact');
 const address = require('./types/address');
-const identifier = require('./types/identifier');
 const humanName = require('./types/humanName');
+const identifier = require('./types/identifier');
 const attachment = require('./types/attachment');
 const maritalStatus = require('./types/maritalStatus');
 const contactPoint = require('./types/contactPoint');
@@ -78,6 +78,8 @@ module.exports = mongoose => {
 		}),
 		{
 			timestamps: true,
+			toJSON: { getters: true, virtuals: true },
+			toObject: { getters: true, virtuals: true }
 		},
 	);
 
