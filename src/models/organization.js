@@ -1,8 +1,8 @@
 const address = require('./types/address');
+const humanName = require('./types/humanName');
 const identifier = require('./types/identifier');
 const contactPoint = require('./types/contactPoint');
 const codeableConcept = require('./types/codeableConcept');
-const humanName = require('./types/humanName');
 const domainResource = require('./types/domainResource');
 
 module.exports = mongoose => {

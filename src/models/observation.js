@@ -6,7 +6,6 @@ const referenceRange = require('./types/referenceRange');
 const domainResource = require('./types/domainResource');
 const codeableConcept = require('./types/codeableConcept');
 const observationComponent = require('./types/observationComponent');
-// const has = require('lodash/has');
 
 module.exports = mongoose => {
 	const Schema = new mongoose.Schema(
