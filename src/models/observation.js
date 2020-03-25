@@ -271,8 +271,9 @@ module.exports = mongoose => {
 		'code',
 		'subject',
 		'patient',
-		'group',
-		'device',
+		// Ignore group, device due to the model is not ready
+		// 'group',
+		// 'device',
 		'location',
 		'focus',
 		'encounter',
@@ -329,13 +330,7 @@ module.exports = mongoose => {
 	// });
 
 	Schema.virtual('subject').get(function () {
-		return Object.assign(
-			[],
-			this.patient,
-			this.group,
-			this.device,
-			this.location,
-		);
+		return this.patient || this.location;
 	});
 
 	Schema.virtual('performer').get(function () {
@@ -420,15 +415,8 @@ module.exports = mongoose => {
 							: Object.assign(obj, { [key]: params[key] }),
 					{},
 				);
-				permitParams.resourceType = 'Observation';
 
-				// if (has(permitParams, 'subject')) {
-				// 	permitParams.patient = permitParams.subject;
-				// }
-				//
-				// if (has(permitParams, 'subject')) {
-				// 	permitParams.patient = permitParams.subject;
-				// }
+				permitParams.resourceType = 'Observation';
 
 				return (await this.create(permitParams));
 			} catch (e) {
