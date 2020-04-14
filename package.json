@@ -10,7 +10,7 @@
     "nodemon": "cross-env NODE_ENV=development node src/scripts/nodemon",
     "test": "cross-env NODE_ENV=test node src/scripts/test",
     "prettier": "prettier \"src/**/*.js\" --write",
-    "lint": "say 'eslint is running' && eslint \"src/**/*.js\"",
+    "lint": "say 'eslint is running' && eslint --fix \"src/**/*.js\"",
     "changelog": "conventional-changelog -p angular -s -r 0 -i CHANGELOG.md"
   },
   "pre-commit": "lint",
