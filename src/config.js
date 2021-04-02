@@ -26,7 +26,7 @@ const SERVER_CONFIG = {
 	},
 	// Auth configurations
 	auth: {
-		name: 'bearer',
+		// name: 'bearer',
 		strategy: smartBearerStrategy({
 			clientId: process.env.CLIENT_ID,
 			clientSecret: process.env.CLIENT_SECRET,

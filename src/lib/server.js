@@ -95,9 +95,9 @@ class Server {
 	}
 
 	configurePassport() {
-	  if (process.env.IGNORE_AUTHENTICATION) {
-	    return this;
-	  }
+		if (process.env.IGNORE_AUTHENTICATION) {
+			return this;
+		}
 
 		let { auth } = this.config;
 		// Only add passport if we have valid configurations
@@ -125,10 +125,9 @@ class Server {
 	}
 
 	// enable health check
-	enableHealthCheck () {
+	enableHealthCheck() {
 		// just send a simple 200 response for healthcheck
 		this.app.use('/healthcheck', (_req, res) =>
-			res.status(200).json({ uptime: process.uptime() })
 		);
 		// return self for chaining
 		return this;

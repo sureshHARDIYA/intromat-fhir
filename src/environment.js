@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 if (process.env.NODE_ENV === 'production') {
-	process.env.SOF_AUTHENTICATION = true;
+	process.env.SOF_AUTHENTICATION = false;
 	process.env.HAS_GRAPHIQL = false;
 }
 
