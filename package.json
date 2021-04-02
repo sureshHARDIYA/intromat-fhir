@@ -1,82 +1,82 @@
 {
-  "name": "intromat-fhir",
-  "version": "1.1.0",
-  "description": "A Javascript based GraphQL FHIR server",
-  "main": "index.js",
-  "private": false,
-  "scripts": {
-    "seed": "node src/data",
-    "start": "cross-env NODE_ENV=production node src/index",
-    "nodemon": "cross-env NODE_ENV=development node src/scripts/nodemon",
-    "test": "cross-env NODE_ENV=test node src/scripts/test",
-    "prettier": "prettier \"src/**/*.js\" --write",
-    "lint": "say 'eslint is running' && eslint \"src/**/*.js\"",
-    "changelog": "conventional-changelog -p angular -s -r 0 -i CHANGELOG.md"
-  },
-  "pre-commit": "lint",
-  "prettier": {
-    "trailingComma": "all",
-    "singleQuote": true
-  },
-  "dependencies": {
-    "@asymmetrik/fhir-gql-schema-utils": "^1.0.1",
-    "@asymmetrik/sof-graphql-invariant": "^1.0.2",
-    "@asymmetrik/sof-strategy": "^1.0.2",
-    "axios": "^0.21.1",
-    "bcrypt": "^5.0.0",
-    "body-parser": "^1.18.3",
-    "compression": "^1.7.2",
-    "cors": "^2.8.5",
-    "cross-env": "^5.2.0",
-    "dotenv": "^8.0.0",
-    "express": "^4.16.3",
-    "express-graphql": "^0.6.12",
-    "faker": "^4.1.0",
-    "glob": "^7.1.2",
-    "graphql": "^14.0.2",
-    "graphql-outfields": "^0.9.1",
-    "helmet": "^3.12.1",
-    "lodash": "4.17.19",
-    "moment": "^2.24.0",
-    "moment-timezone": "^0.5.21",
-    "mongoose": "^5.5.6",
-    "mongoose-auto-increment": "^5.0.1",
-    "nodemon": "^1.17.5",
-    "passport": "^0.4.0",
-    "passport-http-bearer": "^1.0.1",
-    "sanitize-html": "^1.18.2",
-    "superagent": "^3.8.3",
-    "uuid": "^3.3.2",
-    "validator": "^10.11.0",
-    "winston": "^3.0.0",
-    "xss": "^1.0.3"
-  },
-  "devDependencies": {
-    "conventional-changelog-cli": "^2.0.11",
-    "coveralls": "^3.0.2",
-    "eslint": "^5.1.0",
-    "jest": "^23.2.0",
-    "pre-commit": "^1.2.2",
-    "prettier": "^1.15.3"
-  },
-  "jest": {
-    "verbose": true,
-    "collectCoverage": true,
-    "coverageReporters": [
-      "text",
-      "lcov",
-      "json"
-    ],
-    "setupFiles": [
-      "<rootDir>/src/environment.js"
-    ],
-    "testEnvironment": "node",
-    "testPathIgnorePatterns": [
-      "<rootDir>/src/scripts/"
-    ],
-    "coveragePathIgnorePatterns": [
-      "<rootDir>/src/environment.js",
-      "<rootDir>/src/resources/"
-    ]
-  }
+	"name": "intromat-fhir",
+	"version": "1.1.0",
+	"description": "A Javascript based GraphQL FHIR server",
+	"main": "index.js",
+	"private": false,
+	"scripts": {
+		"seed": "node src/data",
+		"start": "cross-env NODE_ENV=production node src/index",
+		"nodemon": "cross-env NODE_ENV=development node src/scripts/nodemon",
+		"test": "cross-env NODE_ENV=test node src/scripts/test",
+		"prettier": "prettier \"src/**/*.js\" --write",
+		"lint": "say 'eslint is running' && eslint \"src/**/*.js\"",
+		"changelog": "conventional-changelog -p angular -s -r 0 -i CHANGELOG.md"
+	},
+	"pre-commit": "lint",
+	"prettier": {
+		"trailingComma": "all",
+		"singleQuote": true
+	},
+	"dependencies": {
+		"@asymmetrik/fhir-gql-schema-utils": "^1.0.1",
+		"@asymmetrik/sof-graphql-invariant": "^1.0.2",
+		"@asymmetrik/sof-strategy": "^1.0.2",
+		"axios": "^0.21.1",
+		"bcrypt": "^5.0.0",
+		"body-parser": "1.19.0",
+		"compression": "^1.7.2",
+		"cors": "^2.8.5",
+		"cross-env": "^5.2.0",
+		"dotenv": "^8.0.0",
+		"express": "^4.16.3",
+		"express-graphql": "^0.6.12",
+		"faker": "5.5.2",
+		"glob": "^7.1.2",
+		"graphql": "^14.0.2",
+		"graphql-outfields": "^0.9.1",
+		"helmet": "^3.12.1",
+		"lodash": "4.17.21",
+		"moment": "2.29.1",
+		"moment-timezone": "0.5.33",
+		"mongoose": "^5.5.6",
+		"mongoose-auto-increment": "^5.0.1",
+		"nodemon": "^1.17.5",
+		"passport": "0.4.1",
+		"passport-http-bearer": "^1.0.1",
+		"sanitize-html": "^1.18.2",
+		"superagent": "^3.8.3",
+		"uuid": "8.3.2",
+		"validator": "^10.11.0",
+		"winston": "^3.0.0",
+		"xss": "^1.0.3"
+	},
+	"devDependencies": {
+		"conventional-changelog-cli": "^2.0.11",
+		"coveralls": "^3.0.2",
+		"eslint": "^5.1.0",
+		"jest": "26.6.3",
+		"pre-commit": "^1.2.2",
+		"prettier": "^1.15.3"
+	},
+	"jest": {
+		"verbose": true,
+		"collectCoverage": true,
+		"coverageReporters": [
+			"text",
+			"lcov",
+			"json"
+		],
+		"setupFiles": [
+			"<rootDir>/src/environment.js"
+		],
+		"testEnvironment": "node",
+		"testPathIgnorePatterns": [
+			"<rootDir>/src/scripts/"
+		],
+		"coveragePathIgnorePatterns": [
+			"<rootDir>/src/environment.js",
+			"<rootDir>/src/resources/"
+		]
+	}
 }
