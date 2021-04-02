@@ -128,6 +128,7 @@ class Server {
 	enableHealthCheck() {
 		// just send a simple 200 response for healthcheck
 		this.app.use('/healthcheck', (_req, res) =>
+			res.status(200).json({ uptime: process.uptime() }),
 		);
 		// return self for chaining
 		return this;
