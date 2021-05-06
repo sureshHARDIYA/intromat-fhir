@@ -44,7 +44,7 @@
 		"nodemon": "^1.17.5",
 		"passport": "0.4.1",
 		"passport-http-bearer": "^1.0.1",
-		"sanitize-html": "^1.18.2",
+		"sanitize-html": "^2.3.2",
 		"superagent": "^3.8.3",
 		"uuid": "8.3.2",
 		"validator": "^10.11.0",
