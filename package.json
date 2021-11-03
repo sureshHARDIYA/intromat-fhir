@@ -47,7 +47,7 @@
 		"sanitize-html": "^1.18.2",
 		"superagent": "^3.8.3",
 		"uuid": "8.3.2",
-		"validator": "^10.11.0",
+		"validator": "^13.7.0",
 		"winston": "^3.0.0",
 		"xss": "^1.0.3"
 	},
