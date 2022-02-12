@@ -30,3 +30,7 @@ Interoperability is accepted as a fundamental necessity for the successful reali
 
 # Become supporter
 We are a team of dedicated developers/researchers willing to make healthcare system better. We are always looking for ways where we can collaborate and help. Email <a href="mailto:skmu@hvl.no"><skmu@hvl.no> </a> for further details.
+  
+# Getting started 
+Here is the video tutorial: 
+https://www.youtube.com/watch?v=VlU8feSYqPQ
